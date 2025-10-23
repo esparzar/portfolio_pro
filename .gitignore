@@ -1,0 +1,5 @@
+.env
+proenv/
+*.pyc
+*__pycache__
+.db
