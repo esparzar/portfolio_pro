@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects - Portfolio</title>
+</head>
+<body>
+    {% extends "layouts/base.html" %}
+    
+    {% block content %}
+    <div class="container">
+        <h1>My Projects</h1>
+        <p>Here are some of the projects I've worked on:</p>
+        
+        <div class="project">
+            <h3>Portfolio Website</h3>
+            <p>A Flask-based portfolio website with PostgreSQL database, REST API, and admin panel.</p>
+            <p><strong>Technologies:</strong> Python, Flask, PostgreSQL, HTML, CSS</p>
+        </div>
+        
+        <div class="project">
+            <h3>More projects coming soon...</h3>
+            <p>I'm constantly working on new projects and will add them here soon!</p>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

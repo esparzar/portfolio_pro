@@ -5,8 +5,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 from time import time
 from flask import current_app
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -55,6 +56,9 @@ class User(db.Model):
             return None #any other error
 
         return User.query.get(id)
+
+#    def get_id(self):
+ #       return str(self.id)
 
 
 
