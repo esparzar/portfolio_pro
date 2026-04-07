@@ -1,29 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects - Portfolio</title>
-</head>
-<body>
-    {% extends "layouts/base.html" %}
-    
-    {% block content %}
-    <div class="container">
-        <h1>My Projects</h1>
-        <p>Here are some of the projects I've worked on:</p>
-        
-        <div class="project">
-            <h3>Portfolio Website</h3>
-            <p>A Flask-based portfolio website with PostgreSQL database, REST API, and admin panel.</p>
-            <p><strong>Technologies:</strong> Python, Flask, PostgreSQL, HTML, CSS</p>
-        </div>
-        
-        <div class="project">
-            <h3>More projects coming soon...</h3>
-            <p>I'm constantly working on new projects and will add them here soon!</p>
+{% extends "layouts/base.html" %}
+
+{% block title %}Projects | Amponsah Emmanuel{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold text-gray-800 mb-8">
+    <i class="fas fa-code-branch text-primary mr-2"></i> My Projects
+</h1>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Project 1 -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+        <div class="bg-primary h-2"></div>
+        <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Portfolio Website</h3>
+            <p class="text-gray-600 mb-4">
+                A professional portfolio website built with Flask and Tailwind CSS, featuring responsive design and modern UI.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Flask</span>
+                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Tailwind CSS</span>
+                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Python</span>
+            </div>
+            <a href="#" class="text-primary hover:text-primary-dark font-semibold inline-flex items-center">
+                View Project <i class="fas fa-arrow-right ml-2"></i>
+            </a>
         </div>
     </div>
-    {% endblock %}
-</body>
-</html>
+    
+    <!-- Project 2 -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+        <div class="bg-primary h-2"></div>
+        <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-2">REST API Service</h3>
+            <p class="text-gray-600 mb-4">
+                A robust REST API built with Flask-RESTful, featuring JWT authentication and PostgreSQL database.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Flask</span>
+                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">REST API</span>
+                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">JWT</span>
+            </div>
+            <a href="#" class="text-primary hover:text-primary-dark font-semibold inline-flex items-center">
+                View Project <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Project 3 -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+        <div class="bg-primary h-2"></div>
+        <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Task Management App</h3>
+            <p class="text-gray-600 mb-4">
+                A task management application with user authentication, task creation, and real-time updates.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Flask</span>
+                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">SQLAlchemy</span>
+                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">JavaScript</span>
+            </div>
+            <a href="#" class="text-primary hover:text-primary-dark font-semibold inline-flex items-center">
+                View Project <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

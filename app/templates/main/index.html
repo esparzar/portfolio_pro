@@ -1,27 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emma's Portfolio - Home</title>
-</head>
-<body>
-    {% extends "layouts/base.html" %}
-    
-    {% block content %}
-    <div class="container">
-        <h1>Amponsah Emmanuel | Software Engineer</h1>
-        <p>This is the homepage of my professional portfolio website.</p>
-        <p>Built with Flask, PostgreSQL, and modern web technologies.</p>
-        
-        <h2>Features:</h2>
-        <ul>
-            <li>Project showcase</li>
-            <li>Contact form</li>
-            <li>Admin panel</li>
-            <li>REST API</li>
-        </ul>
+{% extends "layouts/base.html" %}
+
+{% block title %}Home | Amponsah Emmanuel | Software Engineer{% endblock %}
+
+{% block content %}
+<!-- Hero Section - Solid color -->
+<div class="bg-primary rounded-2xl text-white p-12 mb-12 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Amponsah Emmanuel</h1>
+    <p class="text-xl md:text-2xl mb-6 opacity-95">
+        <i class="fas fa-code"></i> Software Engineer | Flask Developer | Tech Enthusiast
+    </p>
+    <div class="space-x-4">
+        <a href="/projects" class="inline-block bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+            View My Work <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+        <a href="/contact" class="inline-block border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition duration-300">
+            Contact Me
+        </a>
     </div>
-    {% endblock %}
-</body>
-</html>
+</div>
+
+<!-- About Section -->
+<div class="bg-white rounded-xl shadow-md p-8 mb-8 hover:shadow-lg transition duration-300">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+        <i class="fas fa-user text-primary mr-2"></i> About Me
+    </h2>
+    <p class="text-gray-600 leading-relaxed mb-4">
+        I'm a passionate Software Engineer with expertise in building web applications using Flask, 
+        PostgreSQL, and modern web technologies. I love creating elegant solutions to complex problems 
+        and continuously learning new technologies.
+    </p>
+    <div class="flex flex-wrap gap-4 text-gray-600">
+        <span><i class="fas fa-map-marker-alt text-primary mr-1"></i> Ghana</span>
+        <span><i class="fas fa-envelope text-primary mr-1"></i> emmanuel.amponsah@example.com</span>
+    </div>
+</div>
+
+<!-- Skills Section -->
+<div class="bg-white rounded-xl shadow-md p-8 mb-8 hover:shadow-lg transition duration-300">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+        <i class="fas fa-code text-primary mr-2"></i> Skills & Technologies
+    </h2>
+    <div class="flex flex-wrap gap-2">
+        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">Python</span>
+        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">Flask</span>
+        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">PostgreSQL</span>
+        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">Tailwind CSS</span>
+        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">JavaScript</span>
+        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">Git</span>
+        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">REST APIs</span>
+        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">SQLAlchemy</span>
+    </div>
+</div>
+
+<!-- Featured Project -->
+<div class="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition duration-300">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+        <i class="fas fa-star text-primary mr-2"></i> Featured Project
+    </h2>
+    <h3 class="text-xl font-semibold text-gray-800 mb-2">Portfolio Website</h3>
+    <p class="text-gray-600 mb-4">
+        A modern, responsive portfolio website built with Flask and Tailwind CSS, featuring project showcase, 
+        contact form, and responsive design.
+    </p>
+    <a href="/projects" class="text-primary hover:text-primary-dark font-semibold">
+        Learn More <i class="fas fa-arrow-right ml-1"></i>
+    </a>
+</div>
+{% endblock %}

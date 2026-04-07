@@ -1,44 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Me - Portfolio</title>
-</head>
-<body>
-    {% extends "layouts/base.html" %}
-    
-    {% block content %}
-    <div class="container">
-        <h1>Contact Me</h1>
-        <p>Get in touch with me for opportunities or questions.</p>
+{% extends "layouts/base.html" %}
+
+{% block title %}Contact Me | Amponsah Emmanuel{% endblock %}
+
+{% block content %}
+<div class="grid md:grid-cols-2 gap-8">
+    <!-- Contact Information -->
+    <div class="bg-white rounded-xl shadow-md p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-envelope text-blue-600 mr-2"></i> Get In Touch
+        </h2>
+        <p class="text-gray-600 mb-6">
+            Have a question or want to work together? Feel free to reach out!
+        </p>
         
-        <div class="contact-form">
-            <form action="/api/contact" method="POST">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                
-                <button type="submit">Send Message</button>
-            </form>
+        <div class="space-y-4">
+            <div class="flex items-center">
+                <i class="fas fa-envelope w-8 text-blue-600"></i>
+                <span class="text-gray-700">emmanuel.amponsah@example.com</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fab fa-github w-8 text-blue-600"></i>
+                <a href="https://github.com/esparzar" target="_blank" class="text-gray-700 hover:text-blue-600">github.com/esparzar</a>
+            </div>
+            <div class="flex items-center">
+                <i class="fab fa-linkedin w-8 text-blue-600"></i>
+                <a href="#" class="text-gray-700 hover:text-blue-600">linkedin.com/in/emmanuel-amponsah</a>
+            </div>
+            <div class="flex items-center">
+                <i class="fab fa-twitter w-8 text-blue-600"></i>
+                <a href="#" class="text-gray-700 hover:text-blue-600">twitter.com/esparzar</a>
+            </div>
         </div>
     </div>
-    {% endblock %}
-</body>
-</html>
+    
+    <!-- Contact Form -->
+    <div class="bg-white rounded-xl shadow-md p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-paper-plane text-blue-600 mr-2"></i> Send a Message
+        </h2>
+        
+        <form method="POST" action="">
+            {{ form.hidden_tag() if form }}
+            
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
+                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600" id="name" name="name" required>
+            </div>
+            
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+                <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600" id="email" name="email" required>
+            </div>
+            
+            <div class="mb-6">
+                <label for="message" class="block text-gray-700 font-semibold mb-2">Message</label>
+                <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600" id="message" name="message" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition duration-300 w-full">
+                 Send Message <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
