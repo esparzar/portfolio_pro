@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Message from {{ contact.name }}{% endblock %}
+
+{% block content %}
+<div class="section" style="max-width: 800px; margin: 0 auto;">
+    <div class="card">
+        <h1>Message from {{ contact.name }}</h1>
+        
+        <p><strong>Name:</strong> {{ contact.name }}</p>
+        <p><strong>Email:</strong> {{ contact.email }}</p>
+        <p><strong>Service:</strong> {{ contact.service or 'Not specified' }}</p>
+        <p><strong>Date:</strong> {{ contact.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+        <p><strong>Status:</strong> {{ 'Read' if contact.is_read else 'Unread' }}</p>
+        
+        <h3>Message:</h3>
+        <p style="background: #0f172a; padding: 20px; border-radius: 8px; margin-top: 10px;">{{ contact.message }}</p>
+        
+        <div style="margin-top: 30px;">
+            <a href="{{ url_for('admin.contacts') }}" class="btn secondary">Back to Messages</a>
+            <a href="{{ url_for('admin.delete_contact', id=contact.id) }}" class="btn secondary" onclick="return confirm('Delete this message?')">Delete</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

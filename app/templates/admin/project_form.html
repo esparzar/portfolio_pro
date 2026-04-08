@@ -1,0 +1,69 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="section" style="max-width: 800px; margin: 0 auto;">
+    <div class="card">
+        <h1>{{ title }}</h1>
+        
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                <label for="title">Title *</label>
+                {{ form.title(class="form-control", id="title") }}
+            </div>
+            
+            <div class="form-group">
+                <label for="short_description">Short Description</label>
+                {{ form.short_description(class="form-control", id="short_description") }}
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description *</label>
+                {{ form.description(class="form-control", id="description", rows="5") }}
+            </div>
+            
+            <div class="form-group">
+                <label for="technologies">Technologies (comma-separated)</label>
+                {{ form.technologies(class="form-control", id="technologies") }}
+            </div>
+            
+            <div class="form-group">
+                <label for="github_url">GitHub URL</label>
+                {{ form.github_url(class="form-control", id="github_url") }}
+            </div>
+            
+            <div class="form-group">
+                <label for="project_url">Live Demo URL</label>
+                {{ form.project_url(class="form-control", id="project_url") }}
+            </div>
+            
+            <div class="form-group">
+                <label for="featured_image">Featured Image URL</label>
+                {{ form.featured_image(class="form-control", id="featured_image") }}
+            </div>
+            
+            <div class="form-group">
+                <label for="featured">
+                    {{ form.featured() }} Featured Project
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label for="status">Status</label>
+                {{ form.status(class="form-control", id="status") }}
+            </div>
+            
+            <div class="form-group">
+                <label for="display_order">Display Order</label>
+                {{ form.display_order(class="form-control", id="display_order") }}
+            </div>
+            
+            <button type="submit" class="btn primary">Save Project</button>
+            <a href="{{ url_for('admin.projects') }}" class="btn secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
