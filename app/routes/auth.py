@@ -20,7 +20,7 @@ def login():
             login_user(user, remember=True)
             flash('Welcome back!', 'success')
             next_page = request.args.get('next')
-            return redirect(next_page or url_for('admin.dashboard'))
+            return redirect(url_for('admin.dashboard'))
         else:
             flash('Invalid credentials or insufficient permissions', 'error')
     

@@ -8,6 +8,8 @@ from config import Config
 import os
 import logging
 
+
+
 # Initialize extensions
 db = SQLAlchemy()
 migrate = Migrate()
@@ -42,9 +44,12 @@ def create_app(config_class=Config):
     # Register blueprints
     from app.routes.main import main_bp
     from app.routes.auth import auth_bp
+    from app.routes.admin import admin_bp 
+
     
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(admin_bp)
     
     # Register API blueprint if it exists
     try:
@@ -66,6 +71,27 @@ def create_app(config_class=Config):
         app.logger.addHandler(file_handler)
     
     return app
+# Auto-create admin user if environment variables are set
+def create_admin_if_not_exists():
+    """Auto-create admin user from environment variables"""
+    from app.models.user import User
+    
+    username = os.environ.get('ADMIN_USERNAME', 'admin')
+    email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
+    password = os.environ.get('ADMIN_PASSWORD')
+    
+    if password:
+        admin = User.query.filter_by(username=username).first()
+        if not admin:
+            admin = User(username=username, email=email, is_admin=True, is_active=True)
+            admin.set_password(password)
+            db.session.add(admin)
+            db.session.commit()
+            print(f'✅ Auto-created admin user: {username}')
+        else:
+            print(f'✓ Admin user already exists: {username}')
+    else:
+        print('⚠️  ADMIN_PASSWORD not set, skipping admin creation')
 
 # User loader for Flask-Login
 @login_manager.user_loader
