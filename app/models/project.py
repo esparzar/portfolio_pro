@@ -23,7 +23,7 @@ class Project(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
     
     # Relationship
-    user = db.relationship("User", backref="projects")
+    #user = db.relationship("User", backref="projects")
     
     @classmethod
     def get_all_active(cls):
