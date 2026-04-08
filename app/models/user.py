@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     last_login = db.Column(db.DateTime)
 
-    projects = db.relationship('Project', back_populates='user', foreign_keys='Project.user_id')
+    #projects = db.relationship('Project', back_populates='user', foreign_keys='Project.user_id')
     
     def set_password(self, password):
         """Hash and set password"""
