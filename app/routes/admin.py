@@ -4,7 +4,7 @@ from app import db
 from app.models.project import Project
 from app.models.contact import Contact
 from app.models.user import User
-from app.forms.project import ProjectForm
+from app.forms.projects import ProjectForm
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
