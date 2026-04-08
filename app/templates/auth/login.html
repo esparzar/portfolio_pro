@@ -1,34 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Portfolio Admin</title>
-</head>
-<body>
-    {% extends "layouts/base.html" %}
+{% extends "layouts/base.html" %}
+
+{% block title %}Login | Emmanuel Amponsah{% endblock %}
+
+{% block extra_css %}
+<style>
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: #1e293b;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid #334155;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #38bdf8;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #cbd5e1;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: #e2e8f0;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background: #38bdf8;
+    color: #0f172a;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    background: #0ea5e9;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h2>Admin Login</h2>
     
-    {% block content %}
-    <div class="container">
-        <h1>Admin Login</h1>
-        <p>Login to access the admin panel.</p>
-        
-        <div style="max-width: 400px; margin: 0 auto;">
-            <form>
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                
-                <button type="submit">Login</button>
-            </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST" action="{{ url_for('auth.login') }}">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
         </div>
-    </div>
-    {% endblock %}
-</body>
-</html>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        
+        <button type="submit" class="btn-login">Login</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,68 +1,142 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}Projects | Amponsah Emmanuel{% endblock %}
+{% block title %}Projects | Emmanuel Amponsah{% endblock %}
+
+{% block extra_css %}
+<style>
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: #1e293b;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #334155;
+    transition: all 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: #38bdf8;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-content {
+    padding: 25px;
+}
+
+.project-card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #38bdf8;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.tech-tag {
+    background: #334155;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.project-links {
+    margin-top: 20px;
+}
+
+.project-links a {
+    color: #38bdf8;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 600;
+}
+
+.project-links a:hover {
+    text-decoration: underline;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.status-completed {
+    background: #064e3b;
+    color: #10b981;
+}
+
+.status-in-progress {
+    background: #713f12;
+    color: #eab308;
+}
+</style>
+{% endblock %}
 
 {% block content %}
-<h1 class="text-3xl font-bold text-gray-800 mb-8">
-    <i class="fas fa-code-branch text-primary mr-2"></i> My Projects
-</h1>
-
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Project 1 -->
-    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-        <div class="bg-primary h-2"></div>
-        <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Portfolio Website</h3>
-            <p class="text-gray-600 mb-4">
-                A professional portfolio website built with Flask and Tailwind CSS, featuring responsive design and modern UI.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-4">
-                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Flask</span>
-                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Tailwind CSS</span>
-                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Python</span>
-            </div>
-            <a href="#" class="text-primary hover:text-primary-dark font-semibold inline-flex items-center">
-                View Project <i class="fas fa-arrow-right ml-2"></i>
-            </a>
-        </div>
-    </div>
+<section class="section">
+    <h1 style="font-size: 48px; margin-bottom: 20px; text-align: center;">My Projects</h1>
+    <p style="text-align: center; color: #94a3b8; margin-bottom: 50px;">Real-world applications I've built and deployed</p>
     
-    <!-- Project 2 -->
-    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-        <div class="bg-primary h-2"></div>
-        <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-800 mb-2">REST API Service</h3>
-            <p class="text-gray-600 mb-4">
-                A robust REST API built with Flask-RESTful, featuring JWT authentication and PostgreSQL database.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-4">
-                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Flask</span>
-                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">REST API</span>
-                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">JWT</span>
+    <div class="project-grid">
+        {% for project in projects %}
+        <div class="project-card">
+            {% if project.featured_image %}
+            <img src="{{ project.featured_image }}" alt="{{ project.title }}" class="project-image">
+            {% endif %}
+            <div class="project-content">
+                <h2>{{ project.title }}</h2>
+                <p>{{ project.description }}</p>
+                
+                {% if project.technologies %}
+                <div class="project-tech">
+                    {% for tech in project.technologies.split(',') %}
+                    <span class="tech-tag">{{ tech.strip() }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                {% if project.status %}
+                <div class="status-badge status-{{ 'completed' if project.status == 'completed' else 'in-progress' }}">
+                    {{ project.status|replace('_', ' ')|title }}
+                </div>
+                {% endif %}
+                
+                <div class="project-links">
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank">GitHub →</a>
+                    {% endif %}
+                    {% if project.project_url %}
+                    <a href="{{ project.project_url }}" target="_blank">Live Demo →</a>
+                    {% endif %}
+                </div>
             </div>
-            <a href="#" class="text-primary hover:text-primary-dark font-semibold inline-flex items-center">
-                View Project <i class="fas fa-arrow-right ml-2"></i>
-            </a>
         </div>
-    </div>
-    
-    <!-- Project 3 -->
-    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-        <div class="bg-primary h-2"></div>
-        <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Task Management App</h3>
-            <p class="text-gray-600 mb-4">
-                A task management application with user authentication, task creation, and real-time updates.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-4">
-                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">Flask</span>
-                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">SQLAlchemy</span>
-                <span class="bg-blue-100 text-primary px-2 py-1 rounded-full text-xs">JavaScript</span>
+        {% else %}
+        <div class="project-card">
+            <div class="project-content">
+                <h2>No projects yet</h2>
+                <p>Check back soon for my latest work!</p>
             </div>
-            <a href="#" class="text-primary hover:text-primary-dark font-semibold inline-flex items-center">
-                View Project <i class="fas fa-arrow-right ml-2"></i>
-            </a>
         </div>
+        {% endfor %}
     </div>
-</div>
+</section>
 {% endblock %}

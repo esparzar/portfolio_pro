@@ -1,69 +1,84 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}Home | Amponsah Emmanuel | Software Engineer{% endblock %}
+{% block title %}Emmanuel Amponsah | Backend Developer{% endblock %}
 
 {% block content %}
-<!-- Hero Section - Solid color -->
-<div class="bg-primary rounded-2xl text-white p-12 mb-12 text-center">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Amponsah Emmanuel</h1>
-    <p class="text-xl md:text-2xl mb-6 opacity-95">
-        <i class="fas fa-code"></i> Software Engineer | Flask Developer | Tech Enthusiast
-    </p>
-    <div class="space-x-4">
-        <a href="/projects" class="inline-block bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
-            View My Work <i class="fas fa-arrow-right ml-2"></i>
-        </a>
-        <a href="/contact" class="inline-block border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition duration-300">
-            Contact Me
-        </a>
-    </div>
-</div>
+<!-- HERO -->
+<section class="hero" style="text-align: center; padding: 120px 20px; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);">
+    <h1 style="font-size: 56px; margin-bottom: 20px; background: linear-gradient(135deg, #fff, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">I build scalable backend systems</h1>
+    <p style="color: #94a3b8; font-size: 20px; margin-bottom: 15px;">Flask Developer | Docker | PostgreSQL</p>
+    <p style="color: #94a3b8; font-size: 18px;">I help businesses build secure and reliable web applications.</p>
 
-<!-- About Section -->
-<div class="bg-white rounded-xl shadow-md p-8 mb-8 hover:shadow-lg transition duration-300">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">
-        <i class="fas fa-user text-primary mr-2"></i> About Me
-    </h2>
-    <p class="text-gray-600 leading-relaxed mb-4">
-        I'm a passionate Software Engineer with expertise in building web applications using Flask, 
-        PostgreSQL, and modern web technologies. I love creating elegant solutions to complex problems 
-        and continuously learning new technologies.
-    </p>
-    <div class="flex flex-wrap gap-4 text-gray-600">
-        <span><i class="fas fa-map-marker-alt text-primary mr-1"></i> Ghana</span>
-        <span><i class="fas fa-envelope text-primary mr-1"></i> emmanuel.amponsah@example.com</span>
-    </div>
-</div>
+    <a href="{{ url_for('main.projects') }}" class="btn primary">View My Work</a>
+    <a href="{{ url_for('main.contact') }}" class="btn secondary">Hire Me</a>
+</section>
 
-<!-- Skills Section -->
-<div class="bg-white rounded-xl shadow-md p-8 mb-8 hover:shadow-lg transition duration-300">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">
-        <i class="fas fa-code text-primary mr-2"></i> Skills & Technologies
-    </h2>
-    <div class="flex flex-wrap gap-2">
-        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">Python</span>
-        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">Flask</span>
-        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">PostgreSQL</span>
-        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">Tailwind CSS</span>
-        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">JavaScript</span>
-        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">Git</span>
-        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">REST APIs</span>
-        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">SQLAlchemy</span>
+<!-- SERVICES -->
+<section class="section">
+    <h2>What I Do</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>🚀 REST API Development</h3>
+            <p>Scalable, secure, and documented RESTful APIs with Flask and FastAPI.</p>
+            <span class="skill-badge">Flask</span>
+            <span class="skill-badge">RESTful</span>
+        </div>
+        <div class="card">
+            <h3>⚡ Flask Web Applications</h3>
+            <p>Full-stack web apps with authentication, databases, and admin panels.</p>
+            <span class="skill-badge">Flask</span>
+            <span class="skill-badge">Jinja2</span>
+        </div>
+        <div class="card">
+            <h3>🐳 Docker Deployment</h3>
+            <p>Containerized applications for consistent deployment across environments.</p>
+            <span class="skill-badge">Docker</span>
+            <span class="skill-badge">Docker Compose</span>
+        </div>
+        <div class="card">
+            <h3>🗄️ Database Design</h3>
+            <p>Optimized PostgreSQL schemas, indexing, and query optimization.</p>
+            <span class="skill-badge">PostgreSQL</span>
+            <span class="skill-badge">SQLAlchemy</span>
+        </div>
     </div>
-</div>
+</section>
 
-<!-- Featured Project -->
-<div class="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition duration-300">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">
-        <i class="fas fa-star text-primary mr-2"></i> Featured Project
-    </h2>
-    <h3 class="text-xl font-semibold text-gray-800 mb-2">Portfolio Website</h3>
-    <p class="text-gray-600 mb-4">
-        A modern, responsive portfolio website built with Flask and Tailwind CSS, featuring project showcase, 
-        contact form, and responsive design.
-    </p>
-    <a href="/projects" class="text-primary hover:text-primary-dark font-semibold">
-        Learn More <i class="fas fa-arrow-right ml-1"></i>
-    </a>
-</div>
+<!-- FEATURED PROJECT -->
+<section class="section">
+    <h2>Featured Project</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Portfolio Pro</h3>
+            <p>Full-stack Flask application with JWT authentication, admin dashboard, PostgreSQL database, and Docker deployment. Features include user management, blog posts, and real-time analytics.</p>
+            <p><strong>Tech:</strong> Flask, PostgreSQL, Docker, JWT</p>
+            <a href="{{ url_for('main.projects') }}" class="card-link">View Project →</a>
+        </div>
+    </div>
+</section>
+
+<!-- WHY WORK WITH ME -->
+<section class="section">
+    <h2>Why Work With Me</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>📝 Clean Code</h3>
+            <p>Maintainable, documented, and follows PEP 8 standards</p>
+        </div>
+        <div class="card">
+            <h3>⏱️ Fast Delivery</h3>
+            <p>Agile methodology with regular updates and quick turnaround</p>
+        </div>
+        <div class="card">
+            <h3>🌍 Real-world Experience</h3>
+            <p>Deployed production apps serving real users</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="text-align:center;">
+    <h2>Let's build something great</h2>
+    <a href="{{ url_for('main.contact') }}" class="btn primary">Start a Project</a>
+</section>
 {% endblock %}

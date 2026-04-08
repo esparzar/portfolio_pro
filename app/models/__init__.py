@@ -1,6 +1,6 @@
-# app/models/__init__.py
 from .user import User
+from .contact import Contact
 from .project import Project
-from .contact import ContactMessage
 
-__all__ = ['User', 'Project', 'ContactMessage']
+# Define what gets exported when doing "from app.models import *"
+__all__ = ['User', 'Contact', 'Project']

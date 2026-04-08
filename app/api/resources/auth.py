@@ -1,24 +1,48 @@
-# app/api/resources/auth.py
-from flask_restful import Resource, reqparse
-from flask_jwt_extended import create_access_token
+from flask import request, jsonify, session
 from app.models.user import User
+import jwt
+from datetime import datetime, timedelta
+from flask import current_app
 
-class AuthResource(Resource):
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('username', type=str, required=True, help='Username is required')
-        parser.add_argument('password', type=str, required=True, help='Password is required')
-        args = parser.parse_args()
+class AuthResource:
+    @staticmethod
+    def register(data):
+        """Register new user"""
+        # Check if user exists
+        if User.query.filter_by(username=data['username']).first():
+            return jsonify({'error': 'Username already exists'}), 400
         
-        user = User.query.filter_by(username=args['username']).first()
-        if user and user.check_password(args['password']):
-            access_token = create_access_token(identity=user.id)
-            return {
-                'access_token': access_token,
-                'user': {
-                    'id': user.id,
-                    'username': user.username,
-                    'email': user.email
-                }
-            }, 200
-        return {'message': 'Invalid credentials'}, 401
+        if User.query.filter_by(email=data['email']).first():
+            return jsonify({'error': 'Email already exists'}), 400
+        
+        # Create new user
+        user = User(
+            username=data['username'],
+            email=data['email']
+        )
+        user.set_password(data['password'])
+        
+        from app import db
+        db.session.add(user)
+        db.session.commit()
+        
+        return jsonify({'message': 'User created successfully'}), 201
+    
+    @staticmethod
+    def login(data):
+        """Login user and return token"""
+        user = User.authenticate(data['username'], data['password'])
+        
+        if not user:
+            return jsonify({'error': 'Invalid credentials'}), 401
+        
+        # Create JWT token
+        token = jwt.encode({
+            'user_id': user.id,
+            'exp': datetime.utcnow() + timedelta(hours=24)
+        }, current_app.config['SECRET_KEY'], algorithm='HS256')
+        
+        return jsonify({
+            'token': token,
+            'user': user.to_dict()
+        }), 200

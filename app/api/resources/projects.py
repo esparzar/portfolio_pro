@@ -1,16 +1,20 @@
-# app/api/resources/projects.py
-from flask_restful import Resource, reqparse
-from flask_jwt_extended import jwt_required
+from flask import jsonify
 from app.models.project import Project
 
-class ProjectListResource(Resource):
-    def get(self):
-        projects = Project.query.filter_by(status='published').all()
-        return {
-            'projects': [project.to_dict() for project in projects]
-        }, 200
-
-class ProjectResource(Resource):
-    def get(self, project_id):
-        project = Project.query.get_or_404(project_id)
-        return project.to_dict(), 200
+class ProjectResource:
+    @staticmethod
+    def get_all():
+        """Get all projects"""
+        projects = Project.get_all_active()
+        return jsonify({
+            'projects': [project.to_dict() for project in projects],
+            'count': len(projects)
+        })
+    
+    @staticmethod
+    def get_one(project_id):
+        """Get single project by ID"""
+        project = Project.query.get(project_id)
+        if not project:
+            return jsonify({'error': 'Project not found'}), 404
+        return jsonify(project.to_dict())
