@@ -13,10 +13,9 @@
             <h3>{{ project.title }}</h3>
             <p>{{ project.short_description or project.description[:100] }}...</p>
             <p><strong>Tech:</strong> {{ project.technologies }}</p>
-            <p><strong>Status:</strong> {{ project.status }} | <strong>Featured:</strong> {{ 'Yes' if project.featured else 'No' }}</p>
             <div style="margin-top: 15px;">
-                <a href="{{ url_for('admin.edit_project', id=project.id) }}" class="btn secondary">Edit</a>
-                <a href="{{ url_for('admin.delete_project', id=project.id) }}" class="btn secondary" onclick="return confirm('Are you sure?')">Delete</a>
+                <a href="{{ url_for('admin.edit_project', id=project.id) }}">Edit</a> |
+                <a href="{{ url_for('admin.delete_project', id=project.id) }}" onclick="return confirm('Are you sure?')">Delete</a>
             </div>
         </div>
         {% endfor %}
