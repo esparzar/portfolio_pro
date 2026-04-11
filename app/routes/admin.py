@@ -147,40 +147,59 @@ def delete_contact(id):
 
 @admin_bp.route('/setup-admin')
 def setup_admin():
-    """Temporary route to create admin user - REMOVE AFTER USE"""
+    """Create admin user using password from environment variables"""
+    from app import db
     from app.models.user import User
     import os
     
-    username = os.environ.get('ADMIN_USERNAME', 'admin')
-    email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
-    password = os.environ.get('ADMIN_PASSWORD')
+    try:
+        # Get admin credentials from environment variables
+        username = os.environ.get('ADMIN_USERNAME', 'admin')
+        email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
+        password = os.environ.get('ADMIN_PASSWORD')
+        
+        # Check if admin already exists
+        admin_exists = User.query.filter_by(username=username).first()
+        
+        if admin_exists:
+            return f'''
+            <h2>Admin User Already Exists</h2>
+            <p><strong>Username:</strong> {username}</p>
+            <p><strong>Email:</strong> {email}</p>
+            <br>
+            <a href="/auth/login">Click here to login →</a>
+            '''
+        
+        # Check if password is set in environment
+        if not password:
+            return '''
+            <h2>⚠️ Error: ADMIN_PASSWORD not set in environment variables</h2>
+            <p>Please add ADMIN_PASSWORD to your Render environment variables.</p>
+            <p>Then redeploy and visit this page again.</p>
+            '''
+        
+        # Create admin user
+        admin = User(
+            username=username,
+            email=email,
+            is_admin=True,
+            is_active=True
+        )
+        admin.set_password(password)
+        db.session.add(admin)
+        db.session.commit()
+        
+        return f'''
+        <h2>✅ Admin User Created Successfully!</h2>
+        <p><strong>Username:</strong> {username}</p>
+        <p><strong>Email:</strong> {email}</p>
+        <p><strong>Password:</strong> (the password you set in ADMIN_PASSWORD)</p>
+        <br>
+        <a href="/auth/login">Click here to login →</a>
+        <br><br>
+        <p><strong>IMPORTANT:</strong> After logging in, remove this page for security!</p>
+        '''
     
-    # If no password in env, use default (not recommended for production)
-    if not password:
-        password = 'admin123'
-        result = f'⚠️ Using default password: {password}<br>Set ADMIN_PASSWORD environment variable for better security.'
-    else:
-        result = '✅ Using password from environment variables'
-    
-    # Check if admin exists
-    admin = User.query.filter_by(username=username).first()
-    
-    if admin:
-        return f'Admin user already exists: {username}<br><br><a href="/admin">Go to Admin Dashboard</a>'
-    
-    # Create admin user
-    admin = User(username=username, email=email, is_admin=True, is_active=True)
-    admin.set_password(password)
-    db.session.add(admin)
-    db.session.commit()
-    
-    return f'''
-    <h2>✅ Admin User Created!</h2>
-    <p><strong>Username:</strong> {username}</p>
-    <p><strong>Password:</strong> {password}</p>
-    <p>{result}</p>
-    <br>
-    <a href="/admin">Go to Admin Dashboard →</a>
-    <br><br>
-    <p><strong>IMPORTANT:</strong> After logging in, remove this route from app/routes/admin.py for security!</p>
-    '''
+    except Exception as e:
+        return f'<h2>Error:</h2><p>{str(e)}</p>'
+   
