@@ -3,155 +3,189 @@
 {% block title %}Emmanuel Amponsah | Backend Developer{% endblock %}
 
 {% block content %}
-<!-- HERO SECTION -->
-<section class="min-h-[90vh] flex items-center justify-center px-6">
-    <div class="text-center max-w-4xl mx-auto">
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-primary">
-            Emmanuel Amponsah
-        </h1>
-        <p class="text-xl md:text-2xl text-secondary mb-4">⚡ Backend Developer | Flask Expert | PostgreSQL</p>
-        <p class="text-lg text-secondary/80 mb-12 max-w-2xl mx-auto">
-            I build fast, secure, production-ready web applications that scale.
-        </p>
-        <div class="flex gap-4 justify-center flex-wrap">
-            <a href="{{ url_for('main.projects') }}" class="bg-accent text-white font-semibold px-8 py-3 rounded-lg btn-hover">View My Work →</a>
-            <a href="{{ url_for('main.contact') }}" class="border border-accent text-accent px-8 py-3 rounded-lg btn-hover">Hire Me →</a>
-        </div>
-    </div>
-</section>
-
-<!-- WHAT I DO -->
-<section class="py-20 px-6">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">What I Do</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <div class="text-4xl mb-4">🚀</div>
-                <h3 class="text-xl font-semibold mb-3 text-primary">REST API Development</h3>
-                <p class="text-secondary text-sm">Scalable, secure, documented RESTful APIs with Flask and FastAPI.</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="text-xs text-accent/80">Flask</span>
-                    <span class="text-xs text-accent/80">RESTful</span>
-                    <span class="text-xs text-accent/80">JWT</span>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+                <div class="mb-3">
+                    <span class="tech-badge d-inline-block">
+                        <i class="fas fa-circle" style="font-size: 8px; color: #10b981; vertical-align: middle;"></i>
+                        Available for work
+                    </span>
+                </div>
+                <h1 class="hero-title">
+                    Building <span class="hero-highlight">scalable</span><br>
+                    backend systems that<br>
+                    actually work
+                </h1>
+                <p class="text-white-50 mb-4 fs-5">
+                    I'm Emmanuel Amponsah, a backend developer specializing in Flask, 
+                    PostgreSQL, and cloud deployment. I help businesses build reliable, 
+                    secure, and production-ready applications.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{{ url_for('main.projects') }}" class="btn-gradient text-decoration-none">
+                        View Projects <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                    <a href="{{ url_for('main.contact') }}" class="btn-outline-light text-decoration-none">
+                        Let's Talk <i class="fas fa-comment ms-2"></i>
+                    </a>
                 </div>
             </div>
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <div class="text-4xl mb-4">⚡</div>
-                <h3 class="text-xl font-semibold mb-3 text-primary">Flask Applications</h3>
-                <p class="text-secondary text-sm">Full-stack web apps with authentication, databases, and admin panels.</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="text-xs text-accent/80">Flask</span>
-                    <span class="text-xs text-accent/80">Jinja2</span>
-                    <span class="text-xs text-accent/80">SQLAlchemy</span>
-                </div>
-            </div>
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <div class="text-4xl mb-4">🐳</div>
-                <h3 class="text-xl font-semibold mb-3 text-primary">Docker Deployment</h3>
-                <p class="text-secondary text-sm">Containerized apps for consistent deployment across environments.</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="text-xs text-accent/80">Docker</span>
-                    <span class="text-xs text-accent/80">Compose</span>
-                    <span class="text-xs text-accent/80">CI/CD</span>
-                </div>
-            </div>
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <div class="text-4xl mb-4">🗄️</div>
-                <h3 class="text-xl font-semibold mb-3 text-primary">Database Design</h3>
-                <p class="text-secondary text-sm">Optimized PostgreSQL schemas, indexing, and query optimization.</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="text-xs text-accent/80">PostgreSQL</span>
-                    <span class="text-xs text-accent/80">SQLAlchemy</span>
-                    <span class="text-xs text-accent/80">Redis</span>
+            <div class="col-lg-5 d-none d-lg-block" data-aos="fade-up" data-aos-delay="200">
+                <div class="float-animation text-center">
+                    <i class="fas fa-code" style="font-size: 200px; color: rgba(99, 102, 241, 0.2);"></i>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- TECH STACK -->
-<section class="py-20 px-6 bg-surface/30">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Technologies I Use</h2>
-        <div class="flex flex-wrap gap-4 justify-center max-w-3xl mx-auto">
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🐍 Python</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🟦 Flask</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🐘 PostgreSQL</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🐳 Docker</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🟢 Linux</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">📦 Git</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🚀 Render</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🔷 REST APIs</span>
+<!-- Services Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">What I Do</h2>
+            <p class="section-subtitle">Specialized in building robust backend solutions</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="premium-card text-center">
+                    <i class="fas fa-rocket fa-3x mb-3" style="color: #6366f1;"></i>
+                    <h4>REST API Development</h4>
+                    <p class="text-white-50">Scalable, secure, and documented RESTful APIs</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="premium-card text-center">
+                    <i class="fas fa-flask fa-3x mb-3" style="color: #6366f1;"></i>
+                    <h4>Flask Applications</h4>
+                    <p class="text-white-50">Full-stack web apps with authentication</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="premium-card text-center">
+                    <i class="fab fa-docker fa-3x mb-3" style="color: #6366f1;"></i>
+                    <h4>Docker Deployment</h4>
+                    <p class="text-white-50">Containerized applications for consistency</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="premium-card text-center">
+                    <i class="fas fa-database fa-3x mb-3" style="color: #6366f1;"></i>
+                    <h4>Database Design</h4>
+                    <p class="text-white-50">Optimized PostgreSQL schemas</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- FEATURED PROJECTS -->
-<section class="py-20 px-6">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Featured Projects</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Tech Stack Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Technologies I Use</h2>
+            <p class="section-subtitle">Modern tools for modern development</p>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center gap-3" data-aos="fade-up" data-aos-delay="100">
+            <span class="tech-badge"><i class="fab fa-python me-2"></i>Python</span>
+            <span class="tech-badge"><i class="fas fa-flask me-2"></i>Flask</span>
+            <span class="tech-badge"><i class="fas fa-database me-2"></i>PostgreSQL</span>
+            <span class="tech-badge"><i class="fab fa-docker me-2"></i>Docker</span>
+            <span class="tech-badge"><i class="fab fa-git-alt me-2"></i>Git</span>
+            <span class="tech-badge"><i class="fab fa-linux me-2"></i>Linux</span>
+            <span class="tech-badge"><i class="fas fa-cloud me-2"></i>Render</span>
+            <span class="tech-badge"><i class="fas fa-code me-2"></i>REST APIs</span>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Some of my best work</p>
+        </div>
+        <div class="row g-4">
             {% for project in featured_projects %}
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <h3 class="text-xl font-semibold mb-3 text-accent">{{ project.title }}</h3>
-                <p class="text-secondary text-sm mb-4">{{ project.short_description or project.description[:100] + '...' }}</p>
-                <div class="flex flex-wrap gap-2 mb-4">
-                    {% for tech in project.get_technologies_list()[:3] %}
-                    <span class="text-xs text-accent/70">{{ tech.strip() }}</span>
-                    {% endfor %}
-                </div>
-                <div class="flex gap-3">
-                    {% if project.github_url %}
-                    <a href="{{ project.github_url }}" class="border border-accent text-accent px-4 py-2 rounded-lg text-sm btn-hover">GitHub →</a>
-                    {% endif %}
-                    {% if project.project_url %}
-                    <a href="{{ project.project_url }}" class="bg-accent text-white px-4 py-2 rounded-lg text-sm btn-hover">Live Demo →</a>
-                    {% endif %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="premium-card">
+                    <h4>{{ project.title }}</h4>
+                    <p class="text-white-50 small">{{ project.short_description or project.description[:100] }}...</p>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        {% for tech in project.get_technologies_list()[:3] %}
+                        <span class="tech-badge small">{{ tech.strip() }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="d-flex gap-3">
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" class="text-decoration-none text-white-50 small" target="_blank">
+                            <i class="fab fa-github me-1"></i>GitHub
+                        </a>
+                        {% endif %}
+                        {% if project.project_url %}
+                        <a href="{{ project.project_url }}" class="text-decoration-none text-white-50 small" target="_blank">
+                            <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                        </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             {% else %}
-            <div class="bg-surface rounded-xl p-12 text-center col-span-full border blue-border">
-                <p class="text-secondary">Coming soon!</p>
+            <div class="col-12 text-center">
+                <p class="text-white-50">Projects coming soon</p>
             </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- WHY CHOOSE ME -->
-<section class="py-20 px-6 bg-surface/30">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Why Choose Me?</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="text-center p-6">
-                <div class="text-4xl mb-3">✅</div>
-                <h3 class="font-semibold mb-2 text-primary">Clean Code</h3>
-                <p class="text-secondary text-sm">Maintainable, documented PEP 8 standards</p>
+<!-- Why Choose Me -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Why Choose Me?</h2>
+            <p class="section-subtitle">What sets me apart</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="premium-card text-center">
+                    <i class="fas fa-code fa-2x mb-3" style="color: #6366f1;"></i>
+                    <h4>Clean Code</h4>
+                    <p class="text-white-50">Maintainable, documented, follows best practices</p>
+                </div>
             </div>
-            <div class="text-center p-6">
-                <div class="text-4xl mb-3">⚡</div>
-                <h3 class="font-semibold mb-2 text-primary">Fast Delivery</h3>
-                <p class="text-secondary text-sm">Agile with regular updates</p>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="premium-card text-center">
+                    <i class="fas fa-bolt fa-2x mb-3" style="color: #a5e45e;"></i>
+                    <h4>Fast Delivery</h4>
+                    <p class="text-white-50">Agile methodology, regular updates</p>
+                </div>
             </div>
-            <div class="text-center p-6">
-                <div class="text-4xl mb-3">🔒</div>
-                <h3 class="font-semibold mb-2 text-primary">Production-Ready</h3>
-                <p class="text-secondary text-sm">Secure auth + deployment expertise</p>
-            </div>
-            <div class="text-center p-6">
-                <div class="text-4xl mb-3">💬</div>
-                <h3 class="font-semibold mb-2 text-primary">24/7 Support</h3>
-                <p class="text-secondary text-sm">Responsive and committed</p>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="premium-card text-center">
+                    <i class="fas fa-shield-alt fa-2x mb-3" style="color: #508bfa;"></i>
+                    <h4>Production-Ready</h4>
+                    <p class="text-white-50">Secure authentication, deployment expertise</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA -->
-<section class="py-20 px-6 text-center">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary">Ready to build something great?</h2>
-        <a href="{{ url_for('main.contact') }}" class="bg-accent text-white font-semibold px-10 py-4 rounded-lg btn-hover inline-block">Start a Project →</a>
+<section class="py-5">
+    <div class="container">
+        <div class="premium-card text-center" data-aos="fade-up">
+            <h2 class="mb-3">Ready to build something great?</h2>
+            <p class="text-white-50 mb-4">Let's work together to bring your ideas to life</p>
+            <a href="{{ url_for('main.contact') }}" class="btn-gradient text-decoration-none">
+                Start a Project <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
     </div>
 </section>
-{% endblock %}
+{% endblock %}                                              

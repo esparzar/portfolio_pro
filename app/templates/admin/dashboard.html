@@ -1,40 +1,175 @@
-{% extends "layouts/base.html" %}
+{% extends "layouts/admin_base.html" %}
 
-{% block title %}Admin Dashboard{% endblock %}
+{% block title %}Dashboard - Admin{% endblock %}
 
 {% block content %}
-<div class="section">
-    <h1>Admin Dashboard</h1>
-    <div class="grid">
-        <div class="card">
-            <h3>📁 Projects</h3>
-            <p style="font-size: 36px; font-weight: bold;">{{ projects_count }}</p>
-            <a href="{{ url_for('admin.projects') }}" class="btn secondary">Manage Projects</a>
-        </div>
-        <div class="card">
-            <h3>💬 Messages</h3>
-            <p style="font-size: 36px; font-weight: bold;">{{ contacts_count }}</p>
-            <p>Unread: {{ unread_messages }}</p>
-            <a href="{{ url_for('admin.contacts') }}" class="btn secondary">View Messages</a>
-        </div>
-        <div class="card">
-            <h3>👥 Users</h3>
-            <p style="font-size: 36px; font-weight: bold;">{{ users_count }}</p>
-            <a href="#" class="btn secondary">Manage Users</a>
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 mb-0">Dashboard</h1>
+            <p class="text-muted">Welcome back! Here's what's happening.</p>
         </div>
     </div>
     
-    <h2>Recent Messages</h2>
-    <div class="grid">
-        {% for contact in recent_contacts %}
-        <div class="card">
-            <h3>{{ contact.name }}</h3>
-            <p><strong>Email:</strong> {{ contact.email }}</p>
-            <p><strong>Message:</strong> {{ contact.message[:100] }}...</p>
-            <p><small>{{ contact.created_at.strftime('%Y-%m-%d %H:%M') }}</small></p>
-            <a href="{{ url_for('admin.view_contact', id=contact.id) }}" class="btn secondary">View</a>
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon bg-primary text-white rounded me-3">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0">{{ projects|length }}</h4>
+                            <p class="text-muted mb-0">Total Projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% endfor %}
+        
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon bg-success text-white rounded me-3">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0">{{ unread_contacts }}</h4>
+                            <p class="text-muted mb-0">Unread Messages</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon bg-warning text-white rounded me-3">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0">{{ total_views }}</h4>
+                            <p class="text-muted mb-0">Page Views</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon bg-info text-white rounded me-3">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0">{{ featured_projects|length }}</h4>
+                            <p class="text-muted mb-0">Featured Projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Activity -->
+    <div class="row g-4">
+        <!-- Recent Contacts -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-0 py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">Recent Messages</h5>
+                        <a href="{{ url_for('admin.contacts') }}" class="btn btn-sm btn-outline-primary">View All</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% if recent_contacts %}
+                        {% for contact in recent_contacts %}
+                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                            <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                {{ contact.name[0].upper() }}
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">{{ contact.name }}</h6>
+                                <p class="text-muted mb-0 small">{{ contact.service }}</p>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-muted">{{ contact.created_at.strftime('%b %d') }}</small>
+                                {% if not contact.is_read %}
+                                <span class="badge bg-danger ms-2">New</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted mb-0">No recent messages</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Projects -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-0 py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">Recent Projects</h5>
+                        <a href="{{ url_for('admin.projects') }}" class="btn btn-sm btn-outline-primary">View All</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% if recent_projects %}
+                        {% for project in recent_projects %}
+                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                            <div class="project-thumb bg-light rounded me-3" style="width: 60px; height: 40px; background-image: url('{{ url_for('static', filename='uploads/' + project.featured_image) if project.featured_image else '' }}'); background-size: cover; background-position: center;">
+                                {% if not project.featured_image %}
+                                <div class="d-flex align-items-center justify-content-center h-100">
+                                    <i class="fas fa-code text-muted"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">{{ project.title }}</h6>
+                                <p class="text-muted mb-0 small">{{ project.status }}</p>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-muted">{{ project.created_at.strftime('%b %d') }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted mb-0">No recent projects</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+.stats-card {
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-2px);
+}
+
+.stats-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+</style>
 {% endblock %}

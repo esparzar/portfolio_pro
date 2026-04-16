@@ -1,13 +1,56 @@
-<footer class="border-t border-neutral-900 mt-20">
-  <div class="max-w-6xl mx-auto px-6 py-10 text-sm text-neutral-500 flex flex-col md:flex-row justify-between gap-4">
-
-    <p>© {{ 2026 }} XPaza. All rights reserved.</p>
-
-    <div class="flex gap-6">
-      <a href="#" class="hover:text-white transition">GitHub</a>
-      <a href="#" class="hover:text-white transition">LinkedIn</a>
-      <a href="#" class="hover:text-white transition">Twitter</a>
+<footer class="bg-dark text-light py-5 mt-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <h5 class="fw-bold mb-3">Your Name</h5>
+                <p class="mb-3">
+                    Full Stack Developer passionate about creating exceptional digital experiences.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="text-light me-3 fs-4"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-light me-3 fs-4"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-light me-3 fs-4"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-light fs-4"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <h5 class="fw-bold mb-3">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{{ url_for('main.about') }}" class="text-light text-decoration-none">About</a></li>
+                    <li class="mb-2"><a href="{{ url_for('main.projects') }}" class="text-light text-decoration-none">Projects</a></li>
+                    <li class="mb-2"><a href="{{ url_for('main.contact') }}" class="text-light text-decoration-none">Contact</a></li>
+                    <li class="mb-2"><a href="#" class="text-light text-decoration-none">Resume</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-4">
+                <h5 class="fw-bold mb-3">Stay Updated</h5>
+                <p class="mb-3">Subscribe to get updates on new projects and articles.</p>
+                <form class="d-flex">
+                    <input type="email" class="form-control me-2" placeholder="Your email">
+                    <button class="btn btn-primary" type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <hr class="my-4">
+        
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="mb-0">&copy; 2024 Your Name. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> using Flask</p>
+            </div>
+        </div>
     </div>
-
-  </div>
 </footer>
+
+<style>
+.social-links a:hover {
+    color: var(--accent-color) !important;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+</style>

@@ -4,101 +4,216 @@
 
 {% block extra_css %}
 <style>
-.contact-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
+.contact-info-card {
+    background: rgba(30, 30, 40, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
 }
 
-/* ... rest of your CSS from previous contact.html ... */
+.contact-info-card:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    transform: translateY(-4px);
+}
 
-.form-error {
-    color: #ef4444;
-    font-size: 12px;
-    margin-top: 5px;
+.contact-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.contact-form {
+    background: rgba(30, 30, 40, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+.form-control {
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    background: rgba(10, 10, 10, 0.8);
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    color: white;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: rgba(99, 102, 241, 0.2);
+    color: white;
+    transform: translateY(-2px);
 }
 </style>
 {% endblock %}
 
 {% block content %}
-<section class="section">
-    <div class="contact-container">
-        <div class="contact-info">
-            <h1>Let's Connect</h1>
-            <p>I'm always excited to work on new projects. I'll get back to you within 24 hours.</p>
-            
-            <div class="info-item">
-                <div class="info-icon">📧</div>
-                <div class="info-text">
-                    <h3>Email</h3>
-                    <p>emmanuel.amponsah@example.com</p>
+<section class="py-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h1 class="section-title">Let's Connect</h1>
+            <p class="section-subtitle">I'm always excited to work on new projects</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Contact Info -->
+            <div class="col-lg-4" data-aos="fade-right">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">Email Me</h4>
+                    <p class="text-white-50 mb-4">Get in touch via email for project inquiries</p>
+                    <a href="mailto:emmanuel.amponsah@example.com" class="text-decoration-none" style="color: #6366f1;">
+                        emmanuel.amponsah@example.com
+                    </a>
                 </div>
             </div>
-            
-            <div class="info-item">
-                <div class="info-icon">📍</div>
-                <div class="info-text">
-                    <h3>Location</h3>
-                    <p>Accra, Ghana</p>
+
+            <div class="col-lg-4" data-aos="fade-up">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-github fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">GitHub</h4>
+                    <p class="text-white-50 mb-4">Check out my open-source contributions</p>
+                    <a href="https://github.com/esparzar" target="_blank" class="text-decoration-none" style="color: #6366f1;">
+                        github.com/esparzar
+                    </a>
                 </div>
             </div>
-            
-            <div class="social-links">
-                <a href="#" class="social-link">GitHub</a>
-                <a href="#" class="social-link">LinkedIn</a>
-                <a href="#" class="social-link">Twitter</a>
+
+            <div class="col-lg-4" data-aos="fade-left">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">LinkedIn</h4>
+                    <p class="text-white-50 mb-4">Connect with me professionally</p>
+                    <a href="https://linkedin.com/in/esparzar" target="_blank" class="text-decoration-none" style="color: #6366f1;">
+                        linkedin.com/in/esparzar
+                    </a>
+                </div>
             </div>
         </div>
-        
-        <div class="contact-form">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            
-            <form method="POST" action="{{ url_for('main.contact') }}">
-                {{ form.hidden_tag() }}
-                
-                <div class="form-group">
-                    <label for="name">Full Name *</label>
-                    {{ form.name(class="form-control", id="name") }}
-                    {% if form.name.errors %}
-                        {% for error in form.name.errors %}
-                            <div class="form-error">{{ error }}</div>
-                        {% endfor %}
-                    {% endif %}
+
+        <!-- Contact Form -->
+        <div class="row mt-5">
+            <div class="col-lg-8 mx-auto" data-aos="fade-up" data-aos-delay="100">
+                <div class="contact-form">
+                    <h3 class="mb-4">Send me a message</h3>
+                    
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <form method="POST" action="{{ url_for('main.contact') }}">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Full Name *</label>
+                                {{ form.name(class="form-control", id="name", placeholder="John Doe") }}
+                                {% if form.name.errors %}
+                                    {% for error in form.name.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email Address *</label>
+                                {{ form.email(class="form-control", id="email", placeholder="john@example.com") }}
+                                {% if form.email.errors %}
+                                    {% for error in form.email.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="service" class="form-label">Service Interested In</label>
+                                {{ form.service(class="form-control", id="service") }}
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="message" class="form-label">Message *</label>
+                                {{ form.message(class="form-control", id="message", rows="5", placeholder="Tell me about your project...") }}
+                                {% if form.message.errors %}
+                                    {% for error in form.message.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-12">
+                                <button type="submit" class="btn-gradient">
+                                    Send Message <i class="fas fa-paper-plane ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                
-                <div class="form-group">
-                    <label for="email">Email Address *</label>
-                    {{ form.email(class="form-control", id="email") }}
-                    {% if form.email.errors %}
-                        {% for error in form.email.errors %}
-                            <div class="form-error">{{ error }}</div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-                
-                <div class="form-group">
-                    <label for="service">Service Interested In</label>
-                    {{ form.service(class="form-control", id="service") }}
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Message *</label>
-                    {{ form.message(class="form-control", id="message", rows="5") }}
-                    {% if form.message.errors %}
-                        {% for error in form.message.errors %}
-                            <div class="form-error">{{ error }}</div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-                
-                <button type="submit" class="btn-submit">Send Message →</button>
-            </form>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="https://github.com/esparzar" class="social-link" target="_blank">
+                    <i class="fab fa-github fa-lg"></i> GitHub
+                </a>
+                <a href="https://linkedin.com/in/esparzar" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin fa-lg"></i> LinkedIn
+                </a>
+                <a href="https://twitter.com/esparzar" class="social-link" target="_blank">
+                    <i class="fab fa-twitter fa-lg"></i> Twitter
+                </a>
+                <a href="mailto:emmanuel.amponsah@example.com" class="social-link">
+                    <i class="fas fa-envelope fa-lg"></i> Email
+                </a>
+            </div>
         </div>
     </div>
 </section>

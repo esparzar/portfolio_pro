@@ -1,58 +1,68 @@
-<nav class="border-b border-neutral-900">
-  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-
-    <!-- LOGO -->
-    <a href="/" class="text-white font-semibold text-lg tracking-tight">
-      E. Amponsah
-    </a>
-
-    <!-- NAV LINKS -->
-    <div class="hidden md:flex items-center gap-8 text-sm text-neutral-400">
-
-      <a href="/"
-         class="hover:text-white transition {% if request.path == '/' %}text-white{% endif %}">
-         Home
-      </a>
-
-      <a href="/about"
-         class="hover:text-white transition {% if request.path.startswith('/about') %}text-white{% endif %}">
-         About
-      </a>
-
-      <a href="/projects"
-         class="hover:text-white transition {% if request.path.startswith('/projects') %}text-white{% endif %}">
-         Projects
-      </a>
-
-      <a href="/contact"
-         class="hover:text-white transition {% if request.path.startswith('/contact') %}text-white{% endif %}">
-         Contact
-      </a>
-
+<!-- components/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">
+            <span class="text-primary">Your</span>Name
+        </a>
+        
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.projects') }}">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.contact') }}">Contact</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user me-1"></i>Admin
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-
-    <!-- CTA -->
-    <a href="/contact"
-       class="hidden md:inline-block px-4 py-2 border border-neutral-700 rounded-lg text-sm hover:border-neutral-500 transition">
-      Hire Me
-    </a>
-
-    <!-- MOBILE BUTTON -->
-    <button id="menu-btn" class="md:hidden text-neutral-400 text-xl">
-      ☰
-    </button>
-
-  </div>
-
-  <!-- MOBILE MENU -->
-  <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-    <div class="flex flex-col gap-4 text-sm text-neutral-400">
-
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/projects">Projects</a>
-      <a href="/contact">Contact</a>
-
-    </div>
-  </div>
 </nav>
+
+<div class="form-check form-switch ms-3">
+    <input class="form-check-input" type="checkbox" id="darkModeToggle">
+    <label class="form-check-label" for="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </label>
+</div>
+
+<style>
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+</style>

@@ -2,67 +2,220 @@
 
 {% block title %}About | Emmanuel Amponsah{% endblock %}
 
+{% block extra_css %}
+<style>
+.about-image {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 2rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    background: #6366f1;
+    border-radius: 50%;
+    border: 2px solid rgba(99, 102, 241, 0.3);
+}
+
+.skill-progress {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.skill-progress-bar {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    height: 100%;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 1s ease;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<section class="section">
-    <h1 style="font-size: 48px; margin-bottom: 30px; text-align: center;">About Me</h1>
-    
-    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 50px;">
-        <div>
-            <div class="card">
-                <h3>Who I Am</h3>
-                <p>I'm Emmanuel Amponsah, a passionate backend developer with over 4 years of experience building scalable web applications. I specialize in creating robust, secure, and efficient backend systems that power modern web applications.</p>
-                <br>
-                <p>My journey in software development started when I built my first Flask application in college. Since then, I've worked with startups and businesses to deliver high-quality software solutions.</p>
+<section class="py-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h1 class="section-title">About Me</h1>
+            <p class="section-subtitle">Get to know me better</p>
+        </div>
+
+        <div class="row g-5">
+            <!-- About Content -->
+            <div class="col-lg-7" data-aos="fade-right">
+                <h2 class="fs-3 fw-semibold mb-4">I'm Emmanuel Amponsah</h2>
+                <p class="text-white-50 mb-4">
+                    I'm a passionate backend developer with expertise in building scalable web applications 
+                    using Flask, PostgreSQL, and modern deployment practices. I focus on writing clean, 
+                    maintainable code that solves real-world problems.
+                </p>
+                <p class="text-white-50 mb-4">
+                    My journey in software development started with a curiosity about how web applications work 
+                    behind the scenes. Since then, I've worked on various projects ranging from REST APIs to 
+                    full-stack applications, always aiming to deliver high-quality solutions.
+                </p>
+                <p class="text-white-50">
+                    When I'm not coding, I enjoy contributing to open-source projects, learning new technologies, 
+                    and sharing knowledge with the developer community.
+                </p>
+                
+                <div class="mt-4">
+                    <a href="{{ url_for('main.contact') }}" class="btn-gradient text-decoration-none">
+                        Let's Work Together <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="about-image">
+                    <i class="fas fa-code fa-5x mb-3" style="color: rgba(255, 255, 255, 0.9);"></i>
+                    <div class="row g-3 mt-3">
+                        <div class="col-6">
+                            <div class="text-center">
+                                <div class="display-4 fw-bold" style="color: #6366f1;">4+</div>
+                                <p class="mb-0">Years Experience</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <div class="display-4 fw-bold" style="color: #6366f1;">15+</div>
+                                <p class="mb-0">Projects Completed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div>
-            <div class="card">
-                <h3>Skills & Technologies</h3>
-                <span class="skill-badge">Python</span>
-                <span class="skill-badge">Flask</span>
-                <span class="skill-badge">FastAPI</span>
-                <span class="skill-badge">Django</span>
-                <span class="skill-badge">PostgreSQL</span>
-                <span class="skill-badge">MySQL</span>
-                <span class="skill-badge">MongoDB</span>
-                <span class="skill-badge">Redis</span>
-                <span class="skill-badge">Docker</span>
-                <span class="skill-badge">Kubernetes</span>
-                <span class="skill-badge">AWS</span>
-                <span class="skill-badge">Git</span>
-                <span class="skill-badge">CI/CD</span>
-                <span class="skill-badge">REST APIs</span>
-                <span class="skill-badge">GraphQL</span>
+
+        <!-- Experience Timeline -->
+        <div class="mt-5 pt-4" data-aos="fade-up">
+            <h2 class="section-title text-start mb-4">Experience</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="fs-5 fw-semibold mb-1">Backend Developer</h4>
+                        <p class="text-white-50 mb-2">Freelance | 2022 - Present</p>
+                        <p class="text-white-50 small">Building custom web applications and REST APIs for clients worldwide.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="fs-5 fw-semibold mb-1">Flask Developer</h4>
+                        <p class="text-white-50 mb-2">Startup Projects | 2020 - 2022</p>
+                        <p class="text-white-50 small">Developed scalable backend systems for various startup projects.</p>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div>
-            <div class="card">
-                <h3>Experience</h3>
-                <p><strong>Senior Backend Developer</strong><br>
-                TechCorp Inc. | 2022 - Present<br>
-                Leading backend development for microservices architecture</p>
-                <br>
-                <p><strong>Flask Developer</strong><br>
-                StartupHub | 2020 - 2022<br>
-                Built REST APIs and integrated third-party services</p>
-            </div>
-        </div>
-        
-        <div>
-            <div class="card">
-                <h3>Education</h3>
-                <p><strong>BSc. Computer Science</strong><br>
-                University of Ghana | 2016 - 2020<br>
-                First Class Honors</p>
-                <br>
-                <p><strong>Certifications</strong><br>
-                - AWS Certified Developer<br>
-                - Docker Mastery<br>
-                - PostgreSQL Advanced</p>
+
+        <!-- Skills -->
+        <div class="mt-5 pt-4" data-aos="fade-up">
+            <h2 class="section-title text-start mb-4">Skills & Expertise</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Python / Flask</span>
+                            <span class="text-white-50">90%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>PostgreSQL / SQL</span>
+                            <span class="text-white-50">85%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Docker / Containerization</span>
+                            <span class="text-white-50">80%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>REST API Design</span>
+                            <span class="text-white-50">90%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Git / Version Control</span>
+                            <span class="text-white-50">85%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Linux / Deployment</span>
+                            <span class="text-white-50">80%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Animate skill bars when they come into view
+const skillBars = document.querySelectorAll('.skill-progress-bar');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const width = entry.target.style.width;
+            entry.target.style.width = width;
+        }
+    });
+}, { threshold: 0.5 });
+
+skillBars.forEach(bar => observer.observe(bar));
+</script>
 {% endblock %}
