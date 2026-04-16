@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}429 - Too Many Requests{% endblock %}
+
+{% block content %}
+<section class="min-h-[70vh] flex items-center justify-center px-6 py-20">
+    <div class="text-center max-w-2xl mx-auto">
+        <div class="text-8xl md:text-9xl font-bold text-accent mb-6">429</div>
+        <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">Too Many Requests</h1>
+        <p class="text-secondary text-lg mb-8">You've made too many requests. Please wait a while before trying again.</p>
+        <div class="flex gap-4 justify-center flex-wrap">
+            <a href="{{ url_for('main.index') }}" class="bg-accent text-white px-6 py-3 rounded-lg btn-hover inline-block">Go Home</a>
+            <a href="{{ url_for('main.contact') }}" class="border border-accent text-accent px-6 py-3 rounded-lg btn-hover inline-block">Contact Support</a>
+        </div>
+        <div class="mt-8 text-secondary/60 text-sm">
+            <p>Error Code: 429 | Rate Limit Exceeded</p>
+            <p>Please try again in 1 hour.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

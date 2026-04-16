@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}500 - Server Error{% endblock %}
+
+{% block content %}
+<section class="min-h-[70vh] flex items-center justify-center px-6 py-20">
+    <div class="text-center max-w-2xl mx-auto">
+        <div class="text-8xl md:text-9xl font-bold text-accent mb-6">500</div>
+        <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">Internal Server Error</h1>
+        <p class="text-secondary text-lg mb-8">Something went wrong on our end. Please try again later or contact me directly.</p>
+        <div class="flex gap-4 justify-center flex-wrap">
+            <a href="{{ url_for('main.index') }}" class="bg-accent text-white px-6 py-3 rounded-lg btn-hover inline-block">Go Home</a>
+            <a href="{{ url_for('main.contact') }}" class="border border-accent text-accent px-6 py-3 rounded-lg btn-hover inline-block">Report Issue</a>
+        </div>
+        <div class="mt-8 text-secondary/60 text-sm">
+            <p>Error Code: 500 | Internal Server Error</p>
+            <p>Our team has been notified. Please try again in a few minutes.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

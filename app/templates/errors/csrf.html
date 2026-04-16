@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}CSRF Error - Security Token Invalid{% endblock %}
+
+{% block content %}
+<section class="min-h-[70vh] flex items-center justify-center px-6 py-20">
+    <div class="text-center max-w-2xl mx-auto">
+        <div class="text-8xl md:text-9xl font-bold text-accent mb-6">⚠️</div>
+        <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">Security Error</h1>
+        <p class="text-secondary text-lg mb-8">The security token was invalid or expired. Please try again.</p>
+        <div class="flex gap-4 justify-center flex-wrap">
+            <a href="{{ url_for('main.index') }}" class="bg-accent text-white px-6 py-3 rounded-lg btn-hover inline-block">Go Home</a>
+            <a href="javascript:location.reload()" class="border border-accent text-accent px-6 py-3 rounded-lg btn-hover inline-block">Try Again</a>
+        </div>
+        <div class="mt-8 text-secondary/60 text-sm">
+            <p>Error: CSRF Token Invalid</p>
+            <p>This usually happens when you've been idle for too long.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
