@@ -3,115 +3,99 @@
 {% block title %}Emmanuel Amponsah | Backend Developer{% endblock %}
 
 {% block content %}
-<!-- HERO SECTION -->
-<section class="min-h-[90vh] flex items-center justify-center px-6">
-    <div class="text-center max-w-4xl mx-auto">
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-primary">
-            Emmanuel Amponsah
-        </h1>
-        <p class="text-xl md:text-2xl text-secondary mb-4">⚡ Backend Developer | Flask Expert | PostgreSQL</p>
-        <p class="text-lg text-secondary/80 mb-12 max-w-2xl mx-auto">
-            I build fast, secure, production-ready web applications that scale.
-        </p>
-        <div class="flex gap-4 justify-center flex-wrap">
-            <a href="{{ url_for('main.projects') }}" class="bg-accent text-white font-semibold px-8 py-3 rounded-lg btn-hover">View My Work →</a>
-            <a href="{{ url_for('main.contact') }}" class="border border-accent text-accent px-8 py-3 rounded-lg btn-hover">Hire Me →</a>
+<!-- HERO -->
+<section class="py-32">
+    <div class="container-premium">
+        <div class="max-w-3xl">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+                Emmanuel Amponsah
+            </h1>
+            <p class="text-xl text-neutral-400 mb-6">
+                Backend Developer
+            </p>
+            <p class="text-neutral-400 max-w-xl">
+                I build production-ready backend systems with Python, Flask, and PostgreSQL.
+            </p>
+            <div class="flex gap-4 mt-8">
+                <a href="{{ url_for('main.projects') }}" class="px-5 py-2.5 bg-neutral-100 text-neutral-950 text-sm font-medium rounded-md hover:bg-neutral-200 transition">View Work</a>
+                <a href="{{ url_for('main.contact') }}" class="px-5 py-2.5 border border-neutral-700 text-sm font-medium rounded-md hover:bg-neutral-900 transition">Contact</a>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- WHAT I DO -->
-<section class="py-20 px-6">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">What I Do</h2>
+<section class="py-20 border-t border-neutral-800">
+    <div class="container-premium">
+        <h2 class="text-2xl font-semibold tracking-tight mb-8">What I Do</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <div class="text-4xl mb-4">🚀</div>
-                <h3 class="text-xl font-semibold mb-3 text-primary">REST API Development</h3>
-                <p class="text-secondary text-sm">Scalable, secure, documented RESTful APIs with Flask and FastAPI.</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="text-xs text-accent/80">Flask</span>
-                    <span class="text-xs text-accent/80">RESTful</span>
-                    <span class="text-xs text-accent/80">JWT</span>
-                </div>
+            <div class="border border-neutral-800 rounded-lg p-6 bg-neutral-900">
+                <div class="text-2xl mb-3">🚀</div>
+                <h3 class="font-medium mb-2">REST API Development</h3>
+                <p class="text-sm text-neutral-400">Scalable, documented APIs with Flask and FastAPI.</p>
             </div>
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <div class="text-4xl mb-4">⚡</div>
-                <h3 class="text-xl font-semibold mb-3 text-primary">Flask Applications</h3>
-                <p class="text-secondary text-sm">Full-stack web apps with authentication, databases, and admin panels.</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="text-xs text-accent/80">Flask</span>
-                    <span class="text-xs text-accent/80">Jinja2</span>
-                    <span class="text-xs text-accent/80">SQLAlchemy</span>
-                </div>
+            <div class="border border-neutral-800 rounded-lg p-6 bg-neutral-900">
+                <div class="text-2xl mb-3">⚡</div>
+                <h3 class="font-medium mb-2">Flask Applications</h3>
+                <p class="text-sm text-neutral-400">Full-stack apps with authentication and admin panels.</p>
             </div>
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <div class="text-4xl mb-4">🐳</div>
-                <h3 class="text-xl font-semibold mb-3 text-primary">Docker Deployment</h3>
-                <p class="text-secondary text-sm">Containerized apps for consistent deployment across environments.</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="text-xs text-accent/80">Docker</span>
-                    <span class="text-xs text-accent/80">Compose</span>
-                    <span class="text-xs text-accent/80">CI/CD</span>
-                </div>
+            <div class="border border-neutral-800 rounded-lg p-6 bg-neutral-900">
+                <div class="text-2xl mb-3">🐳</div>
+                <h3 class="font-medium mb-2">Docker Deployment</h3>
+                <p class="text-sm text-neutral-400">Containerized apps for consistent deployment.</p>
             </div>
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <div class="text-4xl mb-4">🗄️</div>
-                <h3 class="text-xl font-semibold mb-3 text-primary">Database Design</h3>
-                <p class="text-secondary text-sm">Optimized PostgreSQL schemas, indexing, and query optimization.</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="text-xs text-accent/80">PostgreSQL</span>
-                    <span class="text-xs text-accent/80">SQLAlchemy</span>
-                    <span class="text-xs text-accent/80">Redis</span>
-                </div>
+            <div class="border border-neutral-800 rounded-lg p-6 bg-neutral-900">
+                <div class="text-2xl mb-3">🗄️</div>
+                <h3 class="font-medium mb-2">Database Design</h3>
+                <p class="text-sm text-neutral-400">Optimized PostgreSQL schemas and queries.</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- TECH STACK -->
-<section class="py-20 px-6 bg-surface/30">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Technologies I Use</h2>
-        <div class="flex flex-wrap gap-4 justify-center max-w-3xl mx-auto">
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🐍 Python</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🟦 Flask</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🐘 PostgreSQL</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🐳 Docker</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🟢 Linux</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">📦 Git</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🚀 Render</span>
-            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🔷 REST APIs</span>
+<section class="py-20 border-t border-neutral-800">
+    <div class="container-premium">
+        <h2 class="text-2xl font-semibold tracking-tight mb-8">Technologies</h2>
+        <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 border border-neutral-800 rounded-md text-sm text-neutral-300">Python</span>
+            <span class="px-3 py-1.5 border border-neutral-800 rounded-md text-sm text-neutral-300">Flask</span>
+            <span class="px-3 py-1.5 border border-neutral-800 rounded-md text-sm text-neutral-300">PostgreSQL</span>
+            <span class="px-3 py-1.5 border border-neutral-800 rounded-md text-sm text-neutral-300">Docker</span>
+            <span class="px-3 py-1.5 border border-neutral-800 rounded-md text-sm text-neutral-300">Git</span>
+            <span class="px-3 py-1.5 border border-neutral-800 rounded-md text-sm text-neutral-300">Linux</span>
+            <span class="px-3 py-1.5 border border-neutral-800 rounded-md text-sm text-neutral-300">REST APIs</span>
+            <span class="px-3 py-1.5 border border-neutral-800 rounded-md text-sm text-neutral-300">SQLAlchemy</span>
         </div>
     </div>
 </section>
 
 <!-- FEATURED PROJECTS -->
-<section class="py-20 px-6">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Featured Projects</h2>
+<section class="py-20 border-t border-neutral-800">
+    <div class="container-premium">
+        <h2 class="text-2xl font-semibold tracking-tight mb-8">Featured Projects</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for project in featured_projects %}
-            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
-                <h3 class="text-xl font-semibold mb-3 text-accent">{{ project.title }}</h3>
-                <p class="text-secondary text-sm mb-4">{{ project.short_description or project.description[:100] + '...' }}</p>
+            <div class="border border-neutral-800 rounded-lg p-6 bg-neutral-900 card-transition hover:border-neutral-700">
+                <h3 class="font-medium mb-2">{{ project.title }}</h3>
+                <p class="text-sm text-neutral-400 mb-4">{{ project.short_description or project.description[:100] }}...</p>
                 <div class="flex flex-wrap gap-2 mb-4">
                     {% for tech in project.get_technologies_list()[:3] %}
-                    <span class="text-xs text-accent/70">{{ tech.strip() }}</span>
+                    <span class="text-xs text-neutral-500">{{ tech.strip() }}</span>
                     {% endfor %}
                 </div>
                 <div class="flex gap-3">
                     {% if project.github_url %}
-                    <a href="{{ project.github_url }}" class="border border-accent text-accent px-4 py-2 rounded-lg text-sm btn-hover">GitHub →</a>
+                    <a href="{{ project.github_url }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition">GitHub →</a>
                     {% endif %}
                     {% if project.project_url %}
-                    <a href="{{ project.project_url }}" class="bg-accent text-white px-4 py-2 rounded-lg text-sm btn-hover">Live Demo →</a>
+                    <a href="{{ project.project_url }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition">Live →</a>
                     {% endif %}
                 </div>
             </div>
             {% else %}
-            <div class="bg-surface rounded-xl p-12 text-center col-span-full border blue-border">
-                <p class="text-secondary">Coming soon!</p>
+            <div class="border border-neutral-800 rounded-lg p-12 text-center">
+                <p class="text-neutral-500">Coming soon</p>
             </div>
             {% endfor %}
         </div>
@@ -119,39 +103,34 @@
 </section>
 
 <!-- WHY CHOOSE ME -->
-<section class="py-20 px-6 bg-surface/30">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Why Choose Me?</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="text-center p-6">
-                <div class="text-4xl mb-3">✅</div>
-                <h3 class="font-semibold mb-2 text-primary">Clean Code</h3>
-                <p class="text-secondary text-sm">Maintainable, documented PEP 8 standards</p>
+<section class="py-20 border-t border-neutral-800">
+    <div class="container-premium">
+        <h2 class="text-2xl font-semibold tracking-tight mb-8">Why Work With Me</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div>
+                <h3 class="font-medium mb-2">Clean Code</h3>
+                <p class="text-sm text-neutral-400">PEP 8 standards, documented, maintainable.</p>
             </div>
-            <div class="text-center p-6">
-                <div class="text-4xl mb-3">⚡</div>
-                <h3 class="font-semibold mb-2 text-primary">Fast Delivery</h3>
-                <p class="text-secondary text-sm">Agile with regular updates</p>
+            <div>
+                <h3 class="font-medium mb-2">Fast Delivery</h3>
+                <p class="text-sm text-neutral-400">Agile methodology, regular updates.</p>
             </div>
-            <div class="text-center p-6">
-                <div class="text-4xl mb-3">🔒</div>
-                <h3 class="font-semibold mb-2 text-primary">Production-Ready</h3>
-                <p class="text-secondary text-sm">Secure auth + deployment expertise</p>
-            </div>
-            <div class="text-center p-6">
-                <div class="text-4xl mb-3">💬</div>
-                <h3 class="font-semibold mb-2 text-primary">24/7 Support</h3>
-                <p class="text-secondary text-sm">Responsive and committed</p>
+            <div>
+                <h3 class="font-medium mb-2">Production-Ready</h3>
+                <p class="text-sm text-neutral-400">Secure authentication, deployment expertise.</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA -->
-<section class="py-20 px-6 text-center">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary">Ready to build something great?</h2>
-        <a href="{{ url_for('main.contact') }}" class="bg-accent text-white font-semibold px-10 py-4 rounded-lg btn-hover inline-block">Start a Project →</a>
+<section class="py-20 border-t border-neutral-800">
+    <div class="container-premium">
+        <div class="max-w-2xl">
+            <h2 class="text-2xl font-semibold tracking-tight mb-4">Let's build something great</h2>
+            <p class="text-neutral-400 mb-6">Available for freelance work and collaborations.</p>
+            <a href="{{ url_for('main.contact') }}" class="px-5 py-2.5 bg-neutral-100 text-neutral-950 text-sm font-medium rounded-md hover:bg-neutral-200 transition">Get in touch →</a>
+        </div>
     </div>
 </section>
 {% endblock %}

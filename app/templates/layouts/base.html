@@ -1,79 +1,110 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Emmanuel Amponsah | Backend Developer{% endblock %}</title>
 
-    <title>{% block title %}Emmanuel Amponsah | Backend Developer{% endblock %}</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- SEO -->
-    <meta name="author" content="Emmanuel Amponsah">
-    <meta property="og:title" content="Emmanuel Amponsah | Backend Developer">
-    <meta property="og:description" content="Backend Developer building scalable Flask applications and APIs">
-    <meta property="og:type" content="website">
+<!-- Custom config -->
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* {
+  font-family: 'Inter', sans-serif;
+}
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+/* Smooth scroll only - no bounce */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #171717;
+}
+::-webkit-scrollbar-thumb {
+  background: #52525b;
+  border-radius: 3px;
+}
+
+/* Container max-width */
+.container-premium {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Subtle card transition - no bounce */
+.card-transition {
+  transition: all 0.2s ease;
+}
+</style>
+
+{% block extra_css %}{% endblock %}
 </head>
 
-<body class="bg-neutral-950 text-neutral-200 antialiased selection:bg-white selection:text-black">
+<body class="bg-neutral-950 text-neutral-100 antialiased">
 
-    <!-- NAVBAR COMPONENT -->
-    {% include "components/navbar.html" %}
-
-
-    <!-- MAIN CONTENT -->
-    <main class="max-w-6xl mx-auto px-4 md:px-6 py-12">
-        {% block content %}{% endblock %}
-    </main>
-
-
-    <!-- FOOTER COMPONENT -->
-    {% include "components/footer.html" %}
-
-
-    <!-- FLASH MESSAGES -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="fixed bottom-6 right-6 space-y-3 z-50">
-                {% for category, message in messages %}
-                    <div class="px-4 py-3 rounded-lg text-sm shadow-lg
-                        {% if category == 'success' %}
-                            bg-green-900 text-green-300
-                        {% elif category == 'error' %}
-                            bg-red-900 text-red-300
-                        {% else %}
-                            bg-neutral-800 text-neutral-200
-                        {% endif %}
-                    ">
-                        {{ message }}
-                    </div>
-                {% endfor %}
+<!-- NAVBAR - Clean, minimal -->
+<nav class="border-b border-neutral-800 bg-neutral-950/95 backdrop-blur-sm sticky top-0 z-50">
+    <div class="container-premium">
+        <div class="flex justify-between items-center h-16">
+            <div class="text-lg font-semibold tracking-tight">E.A</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="{{ url_for('main.index') }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition {% if request.endpoint == 'main.index' %}text-neutral-100{% endif %}">Home</a>
+                <a href="{{ url_for('main.projects') }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition {% if request.endpoint == 'main.projects' %}text-neutral-100{% endif %}">Projects</a>
+                <a href="{{ url_for('main.contact') }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition {% if request.endpoint == 'main.contact' %}text-neutral-100{% endif %}">Contact</a>
+                <a href="{{ url_for('main.about') }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition {% if request.endpoint == 'main.about' %}text-neutral-100{% endif %}">About</a>
+                {% if current_user.is_authenticated and current_user.is_admin %}
+                <a href="{{ url_for('admin.dashboard') }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition">Admin</a>
+                <a href="{{ url_for('auth.logout') }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition">Logout</a>
+                {% else %}
+                <a href="{{ url_for('auth.login') }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition">Login</a>
+                {% endif %}
             </div>
-        {% endif %}
-    {% endwith %}
+        </div>
+    </div>
+</nav>
 
+<main>
+    {% block content %}{% endblock %}
+</main>
 
-    <!-- MOBILE MENU SCRIPT -->
-    <script>
-        const btn = document.getElementById('menu-btn');
-        const menu = document.getElementById('mobile-menu');
+<!-- FOOTER - Minimal -->
+<footer class="border-t border-neutral-800 py-12 mt-20">
+    <div class="container-premium">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-neutral-500">© 2026 Emmanuel Amponsah</p>
+            <div class="flex space-x-6">
+                <a href="https://github.com/esparzar" class="text-sm text-neutral-500 hover:text-neutral-400 transition">GitHub</a>
+                <a href="https://linkedin.com/in/esparzar" class="text-sm text-neutral-500 hover:text-neutral-400 transition">LinkedIn</a>
+                <a href="https://twitter.com/esparzar" class="text-sm text-neutral-500 hover:text-neutral-400 transition">Twitter</a>
+            </div>
+        </div>
+    </div>
+</footer>
 
-        if (btn && menu) {
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-            });
-        }
-    </script>
-
+{% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -3,43 +3,41 @@
 {% block title %}Projects | Emmanuel Amponsah{% endblock %}
 
 {% block content %}
-<section class="py-20 px-6">
-    <div class="container mx-auto">
-        <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">My Projects</h1>
-        <p class="text-secondary text-center mb-12">Real-world applications I've built and deployed</p>
+<section class="py-20">
+    <div class="container-premium">
+        <!-- Header -->
+        <div class="mb-12">
+            <h1 class="text-3xl font-semibold tracking-tight mb-3">Projects</h1>
+            <p class="text-neutral-400 max-w-2xl">Production-ready applications I've built and deployed.</p>
+        </div>
         
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Projects Grid -->
+        <div class="grid md:grid-cols-2 gap-6">
             {% for project in projects %}
-            <div class="bg-surface rounded-xl overflow-hidden card-hover border border-accent/10">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-3 text-accent">{{ project.title }}</h2>
-                    <p class="text-secondary text-sm mb-4">{{ project.description[:150] }}{% if project.description|length > 150 %}...{% endif %}</p>
-                    
-                    {% if project.technologies %}
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        {% for tech in project.technologies.split(',')[:4] %}
-                        <span class="text-xs bg-accent/10 text-accent px-2 py-1 rounded">{{ tech.strip() }}</span>
-                        {% endfor %}
-                    </div>
+            <div class="border border-neutral-800 rounded-lg p-6 bg-neutral-900 card-transition hover:border-neutral-700">
+                <h2 class="text-xl font-medium mb-2">{{ project.title }}</h2>
+                <p class="text-neutral-400 text-sm mb-4">{{ project.description[:150] }}{% if project.description|length > 150 %}...{% endif %}</p>
+                
+                {% if project.technologies %}
+                <div class="flex flex-wrap gap-2 mb-4">
+                    {% for tech in project.technologies.split(',')[:4] %}
+                    <span class="text-xs text-neutral-500">{{ tech.strip() }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <div class="flex gap-4">
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition" target="_blank">GitHub →</a>
                     {% endif %}
-                    
-                    {% if project.status == 'completed' %}
-                    <div class="inline-block text-xs text-green-400 border border-green-400/30 px-2 py-1 rounded mb-4">✓ Completed</div>
+                    {% if project.project_url %}
+                    <a href="{{ project.project_url }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition" target="_blank">Live Demo →</a>
                     {% endif %}
-                    
-                    <div class="flex gap-3 mt-4">
-                        {% if project.github_url %}
-                        <a href="{{ project.github_url }}" class="border border-accent text-accent px-4 py-2 rounded-lg text-sm btn-hover" target="_blank">GitHub →</a>
-                        {% endif %}
-                        {% if project.project_url %}
-                        <a href="{{ project.project_url }}" class="bg-accent text-background px-4 py-2 rounded-lg text-sm btn-hover" target="_blank">Live Demo →</a>
-                        {% endif %}
-                    </div>
                 </div>
             </div>
             {% else %}
-            <div class="bg-surface rounded-xl p-12 text-center col-span-full">
-                <p class="text-secondary">No projects yet. Check back soon!</p>
+            <div class="border border-neutral-800 rounded-lg p-12 text-center col-span-full">
+                <p class="text-neutral-500">No projects yet. Check back soon.</p>
             </div>
             {% endfor %}
         </div>
