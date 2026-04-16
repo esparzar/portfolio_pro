@@ -3,82 +3,155 @@
 {% block title %}Emmanuel Amponsah | Backend Developer{% endblock %}
 
 {% block content %}
-<!-- HERO -->
-<section class="hero" style="text-align: center; padding: 120px 20px; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);">
-    <h1 style="font-size: 56px; margin-bottom: 20px; background: linear-gradient(135deg, #fff, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">I build scalable backend systems</h1>
-    <p style="color: #94a3b8; font-size: 20px; margin-bottom: 15px;">Flask Developer | Docker | PostgreSQL</p>
-    <p style="color: #94a3b8; font-size: 18px;">I help businesses build secure and reliable web applications.</p>
-
-    <a href="{{ url_for('main.projects') }}" class="btn primary">View My Work</a>
-    <a href="{{ url_for('main.contact') }}" class="btn secondary">Hire Me</a>
-</section>
-
-<!-- SERVICES -->
-<section class="section">
-    <h2>What I Do</h2>
-    <div class="grid">
-        <div class="card">
-            <h3>🚀 REST API Development</h3>
-            <p>Scalable, secure, and documented RESTful APIs with Flask and FastAPI.</p>
-            <span class="skill-badge">Flask</span>
-            <span class="skill-badge">RESTful</span>
-        </div>
-        <div class="card">
-            <h3>⚡ Flask Web Applications</h3>
-            <p>Full-stack web apps with authentication, databases, and admin panels.</p>
-            <span class="skill-badge">Flask</span>
-            <span class="skill-badge">Jinja2</span>
-        </div>
-        <div class="card">
-            <h3>🐳 Docker Deployment</h3>
-            <p>Containerized applications for consistent deployment across environments.</p>
-            <span class="skill-badge">Docker</span>
-            <span class="skill-badge">Docker Compose</span>
-        </div>
-        <div class="card">
-            <h3>🗄️ Database Design</h3>
-            <p>Optimized PostgreSQL schemas, indexing, and query optimization.</p>
-            <span class="skill-badge">PostgreSQL</span>
-            <span class="skill-badge">SQLAlchemy</span>
+<!-- HERO SECTION -->
+<section class="min-h-[90vh] flex items-center justify-center px-6">
+    <div class="text-center max-w-4xl mx-auto">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-primary">
+            Emmanuel Amponsah
+        </h1>
+        <p class="text-xl md:text-2xl text-secondary mb-4">⚡ Backend Developer | Flask Expert | PostgreSQL</p>
+        <p class="text-lg text-secondary/80 mb-12 max-w-2xl mx-auto">
+            I build fast, secure, production-ready web applications that scale.
+        </p>
+        <div class="flex gap-4 justify-center flex-wrap">
+            <a href="{{ url_for('main.projects') }}" class="bg-accent text-white font-semibold px-8 py-3 rounded-lg btn-hover">View My Work →</a>
+            <a href="{{ url_for('main.contact') }}" class="border border-accent text-accent px-8 py-3 rounded-lg btn-hover">Hire Me →</a>
         </div>
     </div>
 </section>
 
-<!-- FEATURED PROJECT -->
-<section class="section">
-    <h2>Featured Project</h2>
-    <div class="grid">
-        <div class="card">
-            <h3>Portfolio Pro</h3>
-            <p>Full-stack Flask application with JWT authentication, admin dashboard, PostgreSQL database, and Docker deployment. Features include user management, blog posts, and real-time analytics.</p>
-            <p><strong>Tech:</strong> Flask, PostgreSQL, Docker, JWT</p>
-            <a href="{{ url_for('main.projects') }}" class="card-link">View Project →</a>
+<!-- WHAT I DO -->
+<section class="py-20 px-6">
+    <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">What I Do</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
+                <div class="text-4xl mb-4">🚀</div>
+                <h3 class="text-xl font-semibold mb-3 text-primary">REST API Development</h3>
+                <p class="text-secondary text-sm">Scalable, secure, documented RESTful APIs with Flask and FastAPI.</p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="text-xs text-accent/80">Flask</span>
+                    <span class="text-xs text-accent/80">RESTful</span>
+                    <span class="text-xs text-accent/80">JWT</span>
+                </div>
+            </div>
+            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
+                <div class="text-4xl mb-4">⚡</div>
+                <h3 class="text-xl font-semibold mb-3 text-primary">Flask Applications</h3>
+                <p class="text-secondary text-sm">Full-stack web apps with authentication, databases, and admin panels.</p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="text-xs text-accent/80">Flask</span>
+                    <span class="text-xs text-accent/80">Jinja2</span>
+                    <span class="text-xs text-accent/80">SQLAlchemy</span>
+                </div>
+            </div>
+            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
+                <div class="text-4xl mb-4">🐳</div>
+                <h3 class="text-xl font-semibold mb-3 text-primary">Docker Deployment</h3>
+                <p class="text-secondary text-sm">Containerized apps for consistent deployment across environments.</p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="text-xs text-accent/80">Docker</span>
+                    <span class="text-xs text-accent/80">Compose</span>
+                    <span class="text-xs text-accent/80">CI/CD</span>
+                </div>
+            </div>
+            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
+                <div class="text-4xl mb-4">🗄️</div>
+                <h3 class="text-xl font-semibold mb-3 text-primary">Database Design</h3>
+                <p class="text-secondary text-sm">Optimized PostgreSQL schemas, indexing, and query optimization.</p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="text-xs text-accent/80">PostgreSQL</span>
+                    <span class="text-xs text-accent/80">SQLAlchemy</span>
+                    <span class="text-xs text-accent/80">Redis</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- WHY WORK WITH ME -->
-<section class="section">
-    <h2>Why Work With Me</h2>
-    <div class="grid">
-        <div class="card">
-            <h3>📝 Clean Code</h3>
-            <p>Maintainable, documented, and follows PEP 8 standards</p>
+<!-- TECH STACK -->
+<section class="py-20 px-6 bg-surface/30">
+    <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Technologies I Use</h2>
+        <div class="flex flex-wrap gap-4 justify-center max-w-3xl mx-auto">
+            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🐍 Python</span>
+            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🟦 Flask</span>
+            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🐘 PostgreSQL</span>
+            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🐳 Docker</span>
+            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🟢 Linux</span>
+            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">📦 Git</span>
+            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🚀 Render</span>
+            <span class="bg-surface px-6 py-3 rounded-full text-accent border blue-border">🔷 REST APIs</span>
         </div>
-        <div class="card">
-            <h3>⏱️ Fast Delivery</h3>
-            <p>Agile methodology with regular updates and quick turnaround</p>
+    </div>
+</section>
+
+<!-- FEATURED PROJECTS -->
+<section class="py-20 px-6">
+    <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Featured Projects</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for project in featured_projects %}
+            <div class="bg-surface rounded-xl p-6 card-hover border blue-border">
+                <h3 class="text-xl font-semibold mb-3 text-accent">{{ project.title }}</h3>
+                <p class="text-secondary text-sm mb-4">{{ project.short_description or project.description[:100] + '...' }}</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    {% for tech in project.get_technologies_list()[:3] %}
+                    <span class="text-xs text-accent/70">{{ tech.strip() }}</span>
+                    {% endfor %}
+                </div>
+                <div class="flex gap-3">
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" class="border border-accent text-accent px-4 py-2 rounded-lg text-sm btn-hover">GitHub →</a>
+                    {% endif %}
+                    {% if project.project_url %}
+                    <a href="{{ project.project_url }}" class="bg-accent text-white px-4 py-2 rounded-lg text-sm btn-hover">Live Demo →</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="bg-surface rounded-xl p-12 text-center col-span-full border blue-border">
+                <p class="text-secondary">Coming soon!</p>
+            </div>
+            {% endfor %}
         </div>
-        <div class="card">
-            <h3>🌍 Real-world Experience</h3>
-            <p>Deployed production apps serving real users</p>
+    </div>
+</section>
+
+<!-- WHY CHOOSE ME -->
+<section class="py-20 px-6 bg-surface/30">
+    <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Why Choose Me?</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="text-center p-6">
+                <div class="text-4xl mb-3">✅</div>
+                <h3 class="font-semibold mb-2 text-primary">Clean Code</h3>
+                <p class="text-secondary text-sm">Maintainable, documented PEP 8 standards</p>
+            </div>
+            <div class="text-center p-6">
+                <div class="text-4xl mb-3">⚡</div>
+                <h3 class="font-semibold mb-2 text-primary">Fast Delivery</h3>
+                <p class="text-secondary text-sm">Agile with regular updates</p>
+            </div>
+            <div class="text-center p-6">
+                <div class="text-4xl mb-3">🔒</div>
+                <h3 class="font-semibold mb-2 text-primary">Production-Ready</h3>
+                <p class="text-secondary text-sm">Secure auth + deployment expertise</p>
+            </div>
+            <div class="text-center p-6">
+                <div class="text-4xl mb-3">💬</div>
+                <h3 class="font-semibold mb-2 text-primary">24/7 Support</h3>
+                <p class="text-secondary text-sm">Responsive and committed</p>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- CTA -->
-<section class="section" style="text-align:center;">
-    <h2>Let's build something great</h2>
-    <a href="{{ url_for('main.contact') }}" class="btn primary">Start a Project</a>
+<section class="py-20 px-6 text-center">
+    <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary">Ready to build something great?</h2>
+        <a href="{{ url_for('main.contact') }}" class="bg-accent text-white font-semibold px-10 py-4 rounded-lg btn-hover inline-block">Start a Project →</a>
+    </div>
 </section>
 {% endblock %}

@@ -20,3 +20,5 @@ config.local.py
 instance/
 *.pid
 logs/
+.sixth/
+

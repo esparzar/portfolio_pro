@@ -1,49 +1,49 @@
 import smtplib
+import logging
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import current_app
-import logging
 
 def send_email(subject, recipients, body, html=None):
-    """
-    Send email using SMTP
-    
-    Args:
-        subject: Email subject
-        recipients: List of email addresses or single string
-        body: Plain text email body
-        html: HTML email body (optional)
-    """
+    """Send email using SMTP"""
     if isinstance(recipients, str):
         recipients = [recipients]
     
-    # For development, just log the email
     if current_app.config.get('DEBUG'):
         logging.info(f"Email would be sent: {subject} to {recipients}")
-        logging.info(f"Body: {body}")
         return True
     
-    # Production email sending
     try:
         msg = MIMEMultipart('alternative')
         msg['Subject'] = subject
-        msg['From'] = current_app.config['SMTP_USERNAME']
+        msg['From'] = current_app.config['MAIL_USERNAME']
         msg['To'] = ', '.join(recipients)
         
-        # Attach plain text part
         msg.attach(MIMEText(body, 'plain'))
-        
-        # Attach HTML part if provided
         if html:
             msg.attach(MIMEText(html, 'html'))
         
-        # Send email
-        with smtplib.SMTP(current_app.config['SMTP_SERVER'], current_app.config['SMTP_PORT']) as server:
+        with smtplib.SMTP(current_app.config['MAIL_SERVER'], current_app.config['MAIL_PORT']) as server:
             server.starttls()
-            server.login(current_app.config['SMTP_USERNAME'], current_app.config['SMTP_PASSWORD'])
+            server.login(current_app.config['MAIL_USERNAME'], current_app.config['MAIL_PASSWORD'])
             server.send_message(msg)
         
         return True
     except Exception as e:
         logging.error(f"Failed to send email: {str(e)}")
         return False
+
+def send_contact_notification(contact):
+    """Send notification for new contact submission"""
+    subject = f"New Contact: {contact.name}"
+    body = f"""
+New contact submission:
+
+Name: {contact.name}
+Email: {contact.email}
+Service: {contact.service}
+Message: {contact.message}
+    """
+    
+    admin_email = current_app.config.get('ADMIN_EMAIL', 'admin@example.com')
+    return send_email(subject, admin_email, body)

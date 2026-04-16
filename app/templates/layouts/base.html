@@ -1,236 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}Emmanuel Amponsah | Backend Developer{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>{% block title %}Emmanuel Amponsah | Backend Developer{% endblock %}</title>
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    <!-- SEO -->
+    <meta name="author" content="Emmanuel Amponsah">
+    <meta property="og:title" content="Emmanuel Amponsah | Backend Developer">
+    <meta property="og:description" content="Backend Developer building scalable Flask applications and APIs">
+    <meta property="og:type" content="website">
 
-body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    background: #0f172a;
-    color: #e2e8f0;
-    line-height: 1.6;
-}
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-/* NAVBAR */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    background: #020617;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid #1e293b;
-}
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-.logo {
-    font-size: 24px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #38bdf8, #818cf8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.nav-links a {
-    color: #94a3b8;
-    margin-left: 30px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover, .nav-links a.active {
-    color: #38bdf8;
-}
-
-/* BUTTONS */
-.btn {
-    padding: 12px 28px;
-    margin: 10px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-block;
-    transition: all 0.3s;
-    cursor: pointer;
-    border: none;
-    font-size: 16px;
-}
-
-.primary {
-    background: #38bdf8;
-    color: #0f172a;
-}
-
-.primary:hover {
-    background: #0ea5e9;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(56, 189, 248, 0.3);
-}
-
-.secondary {
-    border: 2px solid #38bdf8;
-    color: #38bdf8;
-    background: transparent;
-}
-
-.secondary:hover {
-    background: #38bdf8;
-    color: #0f172a;
-    transform: translateY(-2px);
-}
-
-/* SECTIONS */
-.section {
-    max-width: 1200px;
-    margin: auto;
-    padding: 80px 20px;
-}
-
-.section h2 {
-    font-size: 36px;
-    margin-bottom: 40px;
-    text-align: center;
-    color: #fff;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.card {
-    background: #1e293b;
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid #334155;
-    transition: all 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    border-color: #38bdf8;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.card h3 {
-    font-size: 24px;
-    margin-bottom: 15px;
-    color: #38bdf8;
-}
-
-.card p {
-    color: #94a3b8;
-    margin-bottom: 15px;
-}
-
-.card-link {
-    color: #38bdf8;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.card-link:hover {
-    text-decoration: underline;
-}
-
-.skill-badge {
-    display: inline-block;
-    background: #334155;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    margin: 5px;
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 30px;
-    background: #020617;
-    color: #64748b;
-    border-top: 1px solid #1e293b;
-}
-
-/* Alert messages */
-.alert {
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.alert-success {
-    background: #064e3b;
-    color: #10b981;
-    border: 1px solid #10b981;
-}
-
-.alert-error {
-    background: #7f1d1d;
-    color: #ef4444;
-    border: 1px solid #ef4444;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .nav-links a {
-        margin: 0 15px;
-    }
-    
-    .section h2 {
-        font-size: 28px;
-    }
-}
-</style>
-
-{% block extra_css %}{% endblock %}
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-neutral-950 text-neutral-200 antialiased selection:bg-white selection:text-black">
 
-<nav>
-    <div class="logo">E A</div>
-    <div class="nav-links">
-        <a href="{{ url_for('main.index') }}" class="{% if request.endpoint == 'main.index' %}active{% endif %}">Home</a>
-        <a href="{{ url_for('main.projects') }}" class="{% if request.endpoint == 'main.projects' %}active{% endif %}">Projects</a>
-        <a href="{{ url_for('main.contact') }}" class="{% if request.endpoint == 'main.contact' %}active{% endif %}">Contact</a>
-        <a href="{{ url_for('main.about') }}" class="{% if request.endpoint == 'main.about' %}active{% endif %}">About</a>
-        {% if current_user.is_authenticated and current_user.is_admin %}
-        <a href="{{ url_for('admin.dashboard') }}" class="{% if request.endpoint and request.endpoint.startswith('admin') %}active{% endif %}">Admin</a>
-        <a href="{{ url_for('auth.logout') }}">Logout</a>
-        {% else %}
-        <a href="{{ url_for('auth.login') }}">Login</a>
+    <!-- NAVBAR COMPONENT -->
+    {% include "components/navbar.html" %}
+
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-4 md:px-6 py-12">
+        {% block content %}{% endblock %}
+    </main>
+
+
+    <!-- FOOTER COMPONENT -->
+    {% include "components/footer.html" %}
+
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="fixed bottom-6 right-6 space-y-3 z-50">
+                {% for category, message in messages %}
+                    <div class="px-4 py-3 rounded-lg text-sm shadow-lg
+                        {% if category == 'success' %}
+                            bg-green-900 text-green-300
+                        {% elif category == 'error' %}
+                            bg-red-900 text-red-300
+                        {% else %}
+                            bg-neutral-800 text-neutral-200
+                        {% endif %}
+                    ">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
         {% endif %}
-    </div>
-</nav>
+    {% endwith %}
 
-<main>
-    {% block content %}{% endblock %}
-</main>
 
-<footer>
-    <p>© 2026 Emmanuel Amponsah | Backend Developer</p>
-    <p style="margin-top: 10px;">💻 Available for freelance work</p>
-</footer>
+    <!-- MOBILE MENU SCRIPT -->
+    <script>
+        const btn = document.getElementById('menu-btn');
+        const menu = document.getElementById('mobile-menu');
 
-{% block extra_js %}{% endblock %}
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+    </script>
+
 </body>
 </html>

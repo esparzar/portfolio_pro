@@ -7,13 +7,13 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    short_description = db.Column(db.String(255))
+    short_description = db.Column(db.String(255), nullable=True)
     technologies = db.Column(db.String(255))
     project_url = db.Column(db.String(255))
     github_url = db.Column(db.String(255))
     featured_image = db.Column(db.String(255))
     images = db.Column(db.Text)
-    status = db.Column(db.String(50))
+    status = db.Column(db.String(50), default="in_progress")
     featured = db.Column(db.Boolean, default=False)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
@@ -27,7 +27,7 @@ class Project(db.Model):
     
     @classmethod
     def get_all_active(cls):
-        return cls.query.order_by(cls.display_order, cls.created_at.desc()).all()
+        return cls.query.order_by(cls.display_order.asc(), cls.created_at.desc()).all()
     
     @classmethod
     def get_featured(cls):
@@ -37,3 +37,6 @@ class Project(db.Model):
         if self.technologies:
             return [tech.strip() for tech in self.technologies.split(',')]
         return []
+    
+    def __repr__(self):
+        return f"<Project {self.title}>"

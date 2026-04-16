@@ -51,15 +51,16 @@ def create_app(config_name='development'):
     
     # Register API resources
     from app.api.resources.contact import ContactResource, ContactDetailResource, ContactStatsResource
-    from app.api.resources.projects import ProjectsResource, ProjectDetailResource
-    from app.api.resources.auth import AuthResource
-    
+    from app.api.resources.projects import ProjectListResource, ProjectDetailResource
+    from app.api.resources.auth import AuthResource, RegisterResource
+
     api.add_resource(ContactResource, '/api/contacts', '/api/contacts/')
     api.add_resource(ContactDetailResource, '/api/contacts/<int:contact_id>')
     api.add_resource(ContactStatsResource, '/api/contacts/stats')
-    api.add_resource(ProjectsResource, '/api/projects', '/api/projects/')
+    api.add_resource(ProjectListResource, '/api/projects', '/api/projects/')
     api.add_resource(ProjectDetailResource, '/api/projects/<int:project_id>')
     api.add_resource(AuthResource, '/api/auth', '/api/auth/')
+    api.add_resource(RegisterResource, '/api/auth/register', '/api/auth/register/')
     
     # ============================================
     # ERROR HANDLERS
