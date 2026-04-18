@@ -1,48 +1,46 @@
-<nav class="border-b border-neutral-900">
-  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-
-    <!-- LOGO -->
-    <a href="/" class="text-white font-semibold text-lg tracking-tight">
-      E. Amponsah
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--dark-bg); border-bottom: 1px solid var(--border-color);">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}" style="color: var(--accent-color) !important; font-size: 1.5rem;">
+      E.A
     </a>
 
-    <!-- NAV LINKS -->
-    <div class="hidden md:flex items-center gap-8 text-sm text-neutral-400">
-
-      <a href="/"
-         class="hover:text-white transition {% if request.path == '/' %}text-white{% endif %}">
-         Home
-      </a>
-
-      <a href="/about"
-         class="hover:text-white transition {% if request.path.startswith('/about') %}text-white{% endif %}">
-         About
-      </a>
-
-      <a href="/projects"
-         class="hover:text-white transition {% if request.path.startswith('/projects') %}text-white{% endif %}">
-         Projects
-      </a>
-
-      <a href="/contact"
-         class="hover:text-white transition {% if request.path.startswith('/contact') %}text-white{% endif %}">
-         Contact
-      </a>
-
-    </div>
-
-    <!-- CTA -->
-    <a href="/contact"
-       class="hidden md:inline-block px-4 py-2 border border-neutral-700 rounded-lg text-sm hover:border-neutral-500 transition">
-      Hire Me
-    </a>
-
-    <!-- MOBILE BUTTON -->
-    <button id="menu-btn" class="md:hidden text-neutral-400 text-xl">
-      ☰
+    <!-- Toggle Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Nav Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}" href="{{ url_for('main.index') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.endpoint == 'main.about' %}active{% endif %}" href="{{ url_for('main.about') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.endpoint == 'main.projects' %}active{% endif %}" href="{{ url_for('main.projects') }}">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.endpoint == 'main.contact' %}active{% endif %}" href="{{ url_for('main.contact') }}">Contact</a>
+        </li>
+        {% if current_user.is_authenticated and current_user.is_admin %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </li>
+        {% elif not current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
   </div>
+</nav>
 
   <!-- MOBILE MENU -->
   <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
