@@ -5,22 +5,19 @@
 {% block content %}
 <!-- Hero Section -->
 <section class="hero-section text-white py-5" style="background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%); min-height: 600px; display: flex; align-items: center; position: relative; overflow: visible;">
-    <!-- Premium Background Glow -->
-    <div style="position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, transparent 70%); border-radius: 50%; filter: blur(60px); z-index: 0;"></div>
+    <!-- Subtle Background Glow -->
+    <div style="position: absolute; top: -30%; right: 0%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(251, 191, 36, 0.08) 0%, transparent 70%); border-radius: 50%; filter: blur(80px); z-index: 0;"></div>
     
     <div class="container" style="position: relative; z-index: 1;">
         <div class="row align-items-center g-5">
             <!-- Image on Left -->
             <div class="col-lg-5">
-                <div style="position: relative; aspect-ratio: 3/4;">
-                    <!-- Premium Glow Ring -->
-                    <div style="position: absolute; inset: -8px; background: linear-gradient(135deg, #fbbf24, #f59e0b, #fbbf24); border-radius: 50%; opacity: 0.8; animation: glow 3s ease-in-out infinite; z-index: -1;"></div>
-                    
-                    <!-- Inner Ring -->
-                    <div style="position: absolute; inset: -4px; background: linear-gradient(135deg, transparent, rgba(251, 191, 36, 0.3)); border-radius: 50%; opacity: 0.5; z-index: -1;"></div>
+                <div style="position: relative; aspect-ratio: 3/4; max-width: 320px;">
+                    <!-- Subtle Glow Ring -->
+                    <div style="position: absolute; inset: -4px; background: linear-gradient(135deg, #fbbf24, #f59e0b, #fbbf24); border-radius: 50%; opacity: 0.3; animation: glow 3s ease-in-out infinite; z-index: -1;"></div>
                     
                     <!-- Main Image Container -->
-                    <div style="width: 100%; height: 100%; overflow: hidden; border-radius: 50%; box-shadow: 0 30px 80px rgba(251, 191, 36, 0.4), inset 0 0 40px rgba(251, 191, 36, 0.1); background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);">
+                    <div style="width: 100%; height: 100%; overflow: hidden; border-radius: 50%; box-shadow: 0 15px 40px rgba(251, 191, 36, 0.2), inset 0 0 20px rgba(251, 191, 36, 0.05); background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);">
                         {% if url_for('static', filename='images/finalprofile.jpg') %}
                         <img src="{{ url_for('static', filename='images/finalprofile.jpg') }}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
                         {% else %}
@@ -37,11 +34,11 @@
                 <div style="margin-bottom: 1.5rem;">
                     <span class="badge" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: var(--darker-bg); padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 600;">🚀 Full Stack Developer</span>
                 </div>
-                <h1 class="display-1 fw-bold mb-4 fade-in">
+                <h1 class="display-1 fw-bold mb-4 slide-in-left">
                     Hi, I'm <span style="color: #fbbf24;">Emmanuel Amponsah</span>
                 </h1>
                 <p class="lead mb-5 slide-in-left" style="color: #9ca3af; font-size: 1.25rem; line-height: 1.8;">
-                    Self-Taught Full Stack Developer crafting <span style="color: #fbbf24;">exceptional digital experiences</span> with modern technologies. Building production-ready applications that solve real problems.
+                    I build <span style="color: #fbbf24;">blazing-fast digital products</span> that convert. From concept to code to cash flow—let's make your vision unstoppable.
                 </p>
                 <div class="d-flex justify-content-start gap-3 mb-5 flex-wrap">
                     <a href="#projects" class="btn btn-light btn-lg px-5 rounded-pill">
