@@ -263,6 +263,19 @@ body {
     }
 }
 
+@keyframes glow {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+        filter: blur(0px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+        filter: blur(5px);
+    }
+}
+
 .fade-in {
     animation: fadeIn 1s ease-in;
 }
