@@ -1,46 +1,126 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}Projects | Emmanuel Amponsah{% endblock %}
+{% block title %}Projects - Portfolio{% endblock %}
 
 {% block content %}
-<section class="py-20">
-    <div class="container-premium">
-        <!-- Header -->
-        <div class="mb-12">
-            <h1 class="text-3xl font-semibold tracking-tight mb-3">Projects</h1>
-            <p class="text-neutral-400 max-w-2xl">Production-ready applications I've built and deployed.</p>
-        </div>
-        
-        <!-- Projects Grid -->
-        <div class="grid md:grid-cols-2 gap-6">
-            {% for project in projects %}
-            <div class="border border-neutral-800 rounded-lg p-6 bg-neutral-900 card-transition hover:border-neutral-700">
-                <h2 class="text-xl font-medium mb-2">{{ project.title }}</h2>
-                <p class="text-neutral-400 text-sm mb-4">{{ project.description[:150] }}{% if project.description|length > 150 %}...{% endif %}</p>
-                
-                {% if project.technologies %}
-                <div class="flex flex-wrap gap-2 mb-4">
-                    {% for tech in project.technologies.split(',')[:4] %}
-                    <span class="text-xs text-neutral-500">{{ tech.strip() }}</span>
-                    {% endfor %}
-                </div>
-                {% endif %}
-                
-                <div class="flex gap-4">
-                    {% if project.github_url %}
-                    <a href="{{ project.github_url }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition" target="_blank">GitHub →</a>
-                    {% endif %}
-                    {% if project.project_url %}
-                    <a href="{{ project.project_url }}" class="text-sm text-neutral-400 hover:text-neutral-100 transition" target="_blank">Live Demo →</a>
-                    {% endif %}
-                </div>
+<!-- Page Header -->
+<section class="py-5 border-bottom" style="background: var(--light-bg); border-color: var(--border-color) !important;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-3">My Projects</h1>
+                <p class="lead" style="color: var(--text-muted);">
+                    A selection of projects I've worked on. Each showcases different technologies and problem-solving approaches.
+                </p>
             </div>
-            {% else %}
-            <div class="border border-neutral-800 rounded-lg p-12 text-center col-span-full">
-                <p class="text-neutral-500">No projects yet. Check back soon.</p>
-            </div>
-            {% endfor %}
         </div>
     </div>
 </section>
+
+<!-- Filters -->
+<section class="py-4 sticky-top" style="background: var(--light-bg); z-index: 98; border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <div class="input-group">
+                    <span class="input-group-text" style="background: var(--darker-bg); border-color: var(--border-color);">
+                        <i class="fas fa-search" style="color: var(--text-muted);"></i>
+                    </span>
+                    <input type="search" class="form-control" id="projectSearch" placeholder="Search projects..." style="background: var(--darker-bg); border-color: var(--border-color);">
+                </div>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <small style="color: var(--text-muted);">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Showing projects
+                </small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="py-5" style="background: var(--dark-bg);">
+    <div class="container">
+        <div class="row g-4" id="projectsGrid">
+            <div class="col-lg-4 col-md-6 project-item">
+                <div class="card h-100 border-0" style="background: var(--light-bg);">
+                    <div style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-project-diagram fa-4x" style="opacity: 0.3;"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Project Title 1</h5>
+                        <p class="card-text" style="color: var(--text-muted);">Description of your project and the technologies used.</p>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary">Live</a>
+                            <a href="#" class="btn btn-sm btn-outline-secondary">Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 project-item">
+                <div class="card h-100 border-0" style="background: var(--light-bg);">
+                    <div style="background: linear-gradient(135deg, #10b981 0%, #6ee7b7 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-project-diagram fa-4x" style="opacity: 0.3;"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Project Title 2</h5>
+                        <p class="card-text" style="color: var(--text-muted);">Description of your project and the technologies used.</p>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary">Live</a>
+                            <a href="#" class="btn btn-sm btn-outline-secondary">Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 project-item">
+                <div class="card h-100 border-0" style="background: var(--light-bg);">
+                    <div style="background: linear-gradient(135deg, #3b82f6 0%, #93c5fd 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-project-diagram fa-4x" style="opacity: 0.3;"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Project Title 3</h5>
+                        <p class="card-text" style="color: var(--text-muted);">Description of your project and the technologies used.</p>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary">Live</a>
+                            <a href="#" class="btn btn-sm btn-outline-secondary">Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-white position-relative overflow-hidden">
+    <div class="position-absolute inset-0" style="background: linear-gradient(135deg, #3b82f6 0%, #93c5fd 100%); z-index: -1; inset: 0;"></div>
+    <div class="container position-relative text-center" style="z-index: 1;">
+        <h2 class="display-5 fw-bold mb-3">Interested in Your Own Project?</h2>
+        <p class="lead mb-4 mx-auto" style="max-width: 600px; color: rgba(255, 255, 255, 0.95);">
+            Let's discuss your project requirements and create something amazing together.
+        </p>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-light btn-lg px-5 rounded-pill">
+            <i class="fas fa-envelope me-2"></i>Start a Conversation
+        </a>
+    </div>
+</section>
+
+<script>
+document.getElementById('projectSearch').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const projects = document.querySelectorAll('.project-item');
+    
+    projects.forEach(project => {
+        const title = project.querySelector('.card-title').textContent.toLowerCase();
+        const description = project.querySelector('.card-text').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            project.style.display = '';
+        } else {
+            project.style.display = 'none';
+        }
+    });
+});
+</script>
 {% endblock %}

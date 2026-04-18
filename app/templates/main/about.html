@@ -1,68 +1,171 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}About | Emmanuel Amponsah{% endblock %}
+{% block title %}About Me - Portfolio{% endblock %}
 
 {% block content %}
-<section class="section">
-    <h1 style="font-size: 48px; margin-bottom: 30px; text-align: center;">About Me</h1>
-    
-    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 50px;">
-        <div>
-            <div class="card">
-                <h3>Who I Am</h3>
-                <p>I'm Emmanuel Amponsah, a passionate backend developer with over 4 years of experience building scalable web applications. I specialize in creating robust, secure, and efficient backend systems that power modern web applications.</p>
-                <br>
-                <p>My journey in software development started when I built my first Flask application in college. Since then, I've worked with startups and businesses to deliver high-quality software solutions.</p>
+<!-- Page Header -->
+<section class="py-5 border-bottom" style="background: var(--light-bg); border-color: var(--border-color) !important;">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3">About Me</h1>
+        <p class="lead" style="color: var(--text-muted);">Learn more about my journey, skills, and experience</p>
+    </div>
+</section>
+
+<!-- Main About Section -->
+<section class="py-5" style="background: var(--dark-bg);">
+    <div class="container">
+        <div class="row g-5 align-items-center mb-5">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">Who I Am</h2>
+                <p class="lead mb-3" style="color: var(--text-muted);">
+                    I'm Emmanuel Amponsah, a passionate full-stack developer with over 4 years of experience building scalable web applications. My journey started with a simple idea: create exceptional digital experiences that solve real problems.
+                </p>
+                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
+                    Throughout my career, I've worked with startups and established businesses to deliver high-quality software solutions. My expertise spans across modern technologies and best practices, allowing me to build robust, secure, and efficient applications.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div style="background: linear-gradient(135deg, #10b981 0%, #6ee7b7 100%); padding: 2px; border-radius: 12px;">
+                    <div style="background: var(--dark-bg); padding: 2rem; border-radius: 10px;">
+                        <h3 class="fw-bold mb-3">Quick Stats</h3>
+                        <div class="mb-3">
+                            <p class="mb-1" style="color: var(--text-muted);">Experience</p>
+                            <h5 class="fw-bold">4+ Years</h5>
+                        </div>
+                        <div class="mb-3">
+                            <p class="mb-1" style="color: var(--text-muted);">Projects Completed</p>
+                            <h5 class="fw-bold">20+ Projects</h5>
+                        </div>
+                        <div>
+                            <p class="mb-1" style="color: var(--text-muted);">Technologies</p>
+                            <h5 class="fw-bold">15+ Technologies</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="py-5" style="background: var(--light-bg);">
+    <div class="container">
+        <h2 class="display-5 fw-bold mb-5 text-center">My Skills & Technologies</h2>
         
-        <div>
-            <div class="card">
-                <h3>Skills & Technologies</h3>
-                <span class="skill-badge">Python</span>
-                <span class="skill-badge">Flask</span>
-                <span class="skill-badge">FastAPI</span>
-                <span class="skill-badge">Django</span>
-                <span class="skill-badge">PostgreSQL</span>
-                <span class="skill-badge">MySQL</span>
-                <span class="skill-badge">MongoDB</span>
-                <span class="skill-badge">Redis</span>
-                <span class="skill-badge">Docker</span>
-                <span class="skill-badge">Kubernetes</span>
-                <span class="skill-badge">AWS</span>
-                <span class="skill-badge">Git</span>
-                <span class="skill-badge">CI/CD</span>
-                <span class="skill-badge">REST APIs</span>
-                <span class="skill-badge">GraphQL</span>
+        <div class="row g-4 mb-5">
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 h-100" style="background: var(--dark-bg);">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold mb-3">Frontend</h5>
+                        <div class="d-flex flex-wrap gap-2 justify-content-center">
+                            <span class="badge" style="background: #fbbf24; color: var(--darker-bg);">HTML5</span>
+                            <span class="badge" style="background: #fbbf24; color: var(--darker-bg);">CSS3</span>
+                            <span class="badge" style="background: #fbbf24; color: var(--darker-bg);">JavaScript</span>
+                            <span class="badge" style="background: #fbbf24; color: var(--darker-bg);">Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 h-100" style="background: var(--dark-bg);">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold mb-3">Backend</h5>
+                        <div class="d-flex flex-wrap gap-2 justify-content-center">
+                            <span class="badge" style="background: #10b981; color: white;">Python</span>
+                            <span class="badge" style="background: #10b981; color: white;">Flask</span>
+                            <span class="badge" style="background: #10b981; color: white;">FastAPI</span>
+                            <span class="badge" style="background: #10b981; color: white;">Django</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 h-100" style="background: var(--dark-bg);">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold mb-3">Database</h5>
+                        <div class="d-flex flex-wrap gap-2 justify-content-center">
+                            <span class="badge" style="background: #3b82f6; color: white;">PostgreSQL</span>
+                            <span class="badge" style="background: #3b82f6; color: white;">MySQL</span>
+                            <span class="badge" style="background: #3b82f6; color: white;">MongoDB</span>
+                            <span class="badge" style="background: #3b82f6; color: white;">Redis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 h-100" style="background: var(--dark-bg);">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold mb-3">Tools & DevOps</h5>
+                        <div class="d-flex flex-wrap gap-2 justify-content-center">
+                            <span class="badge" style="background: #ec4899; color: white;">Docker</span>
+                            <span class="badge" style="background: #ec4899; color: white;">Git</span>
+                            <span class="badge" style="background: #ec4899; color: white;">Linux</span>
+                            <span class="badge" style="background: #ec4899; color: white;">AWS</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div>
-            <div class="card">
-                <h3>Experience</h3>
-                <p><strong>Senior Backend Developer</strong><br>
-                TechCorp Inc. | 2022 - Present<br>
-                Leading backend development for microservices architecture</p>
-                <br>
-                <p><strong>Flask Developer</strong><br>
-                StartupHub | 2020 - 2022<br>
-                Built REST APIs and integrated third-party services</p>
+    </div>
+</section>
+
+<!-- Experience & Education -->
+<section class="py-5" style="background: var(--dark-bg);">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <h3 class="fw-bold mb-4 display-6">Professional Experience</h3>
+                <div class="mb-4 pb-4 border-bottom" style="border-color: var(--border-color) !important;">
+                    <h5 class="fw-bold mb-2">Senior Backend Developer</h5>
+                    <p style="color: var(--text-muted);">TechCorp Inc. | 2022 - Present</p>
+                    <p style="color: var(--text-muted);">Leading backend development for microservices architecture and RESTful APIs</p>
+                </div>
+                <div class="mb-4 pb-4 border-bottom" style="border-color: var(--border-color) !important;">
+                    <h5 class="fw-bold mb-2">Flask Developer</h5>
+                    <p style="color: var(--text-muted);">StartupHub | 2020 - 2022</p>
+                    <p style="color: var(--text-muted);">Built REST APIs and integrated third-party services for multiple projects</p>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-2">Junior Developer</h5>
+                    <p style="color: var(--text-muted);">Tech Solutions Ltd. | 2018 - 2020</p>
+                    <p style="color: var(--text-muted);">Developed full-stack web applications using modern technologies</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <h3 class="fw-bold mb-4 display-6">Education & Certifications</h3>
+                <div class="mb-4 pb-4 border-bottom" style="border-color: var(--border-color) !important;">
+                    <h5 class="fw-bold mb-2">BSc. Computer Science</h5>
+                    <p style="color: var(--text-muted);">University of Ghana | 2016 - 2020</p>
+                    <p style="color: var(--text-muted);">First Class Honors - Specialization in Software Engineering</p>
+                </div>
+                <div class="mb-4 pb-4 border-bottom" style="border-color: var(--border-color) !important;">
+                    <h5 class="fw-bold mb-2">AWS Certified Developer</h5>
+                    <p style="color: var(--text-muted);">Amazon Web Services | 2021</p>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-2">Docker & Kubernetes Mastery</h5>
+                    <p style="color: var(--text-muted);">Udemy | 2022</p>
+                </div>
             </div>
         </div>
-        
-        <div>
-            <div class="card">
-                <h3>Education</h3>
-                <p><strong>BSc. Computer Science</strong><br>
-                University of Ghana | 2016 - 2020<br>
-                First Class Honors</p>
-                <br>
-                <p><strong>Certifications</strong><br>
-                - AWS Certified Developer<br>
-                - Docker Mastery<br>
-                - PostgreSQL Advanced</p>
-            </div>
-        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-white position-relative overflow-hidden">
+    <div class="position-absolute inset-0" style="background: linear-gradient(135deg, #10b981 0%, #6ee7b7 100%); z-index: -1; inset: 0;"></div>
+    <div class="container position-relative text-center" style="z-index: 1;">
+        <h2 class="display-5 fw-bold mb-3">Let's Work Together</h2>
+        <p class="lead mb-4 mx-auto" style="max-width: 600px; color: rgba(255, 255, 255, 0.95);">
+            Interested in collaborating on a project? I'm always open to new opportunities and challenges.
+        </p>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-light btn-lg px-5 rounded-pill">
+            <i class="fas fa-envelope me-2"></i>Get In Touch
+        </a>
     </div>
 </section>
 {% endblock %}
