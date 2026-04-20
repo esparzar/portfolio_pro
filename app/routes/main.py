@@ -23,6 +23,12 @@ def projects():
     projects = Project.get_all_active()
     return render_template('main/projects.html', projects=projects)
 
+@main_bp.route('/projects/<int:project_id>')
+def project_detail(project_id):
+    """Project detail page"""
+    project = Project.query.get_or_404(project_id)
+    return render_template('main/project_detail.html', project=project)
+
 @main_bp.route('/contact', methods=['GET', 'POST'])
 def contact():
     """Contact page with form handling"""

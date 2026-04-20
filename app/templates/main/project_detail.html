@@ -1,0 +1,208 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{ project.title }} - Project Details{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Navigation -->
+<section class="py-3" style="background: var(--light-bg); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0" style="background: none; padding: 0;">
+                <li class="breadcrumb-item"><a href="{{ url_for('main.index') }}" style="color: #10b981;">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('main.projects') }}" style="color: #10b981;">Projects</a></li>
+                <li class="breadcrumb-item active" style="color: var(--text-muted);">{{ project.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Project Header -->
+<section class="py-5" style="background: var(--dark-bg);">
+    <div class="container">
+        <div class="row g-4 align-items-start">
+            <!-- Featured Image -->
+            <div class="col-lg-6">
+                {% if project.featured_image %}
+                <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.15); background: var(--light-bg);">
+                    <img src="{{ url_for('static', filename='images/' + project.featured_image) }}" alt="{{ project.title }}" style="width: 100%; height: auto; display: block;">
+                </div>
+                {% else %}
+                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); height: 400px; display: flex; align-items: center; justify-content: center; border-radius: 12px;">
+                    <i class="fas fa-code fa-5x" style="color: rgba(255, 255, 255, 0.3);"></i>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Project Info -->
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold mb-3">{{ project.title }}</h1>
+                
+                <!-- Status Badge -->
+                {% if project.status %}
+                <div class="mb-4">
+                    <span class="badge" style="background: #10b981; color: white; padding: 0.5rem 1rem; text-transform: capitalize;">
+                        {{ project.status }}
+                    </span>
+                </div>
+                {% endif %}
+
+                <!-- Description -->
+                <p class="lead mb-4" style="color: #9ca3af; font-size: 1.1rem; line-height: 1.8;">
+                    {{ project.description }}
+                </p>
+
+                <!-- Technologies -->
+                {% if project.technologies %}
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">Technologies Used</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for tech in project.get_technologies_list() %}
+                        <span class="badge" style="background: var(--light-bg); color: #10b981; padding: 0.5rem 1rem; border: 1px solid #10b981;">
+                            {{ tech }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Action Links -->
+                <div class="d-flex gap-3 mt-5">
+                    {% if project.project_url %}
+                    <a href="{{ project.project_url }}" target="_blank" class="btn btn-lg" style="background: #10b981; color: white; padding: 0.75rem 2rem;">
+                        <i class="fas fa-external-link-alt me-2"></i>View Live Project
+                    </a>
+                    {% endif %}
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank" class="btn btn-lg" style="background: var(--light-bg); color: #10b981; border: 2px solid #10b981; padding: 0.75rem 2rem;">
+                        <i class="fab fa-github me-2"></i>View Code
+                    </a>
+                    {% endif %}
+                </div>
+
+                <!-- Additional Info -->
+                <div class="mt-5 pt-4" style="border-top: 1px solid var(--border-color);">
+                    <div class="row g-4">
+                        {% if project.start_date %}
+                        <div class="col-md-6">
+                            <small style="color: var(--text-muted);">START DATE</small>
+                            <p class="fw-bold">{{ project.start_date.strftime('%B %Y') }}</p>
+                        </div>
+                        {% endif %}
+                        {% if project.end_date %}
+                        <div class="col-md-6">
+                            <small style="color: var(--text-muted);">END DATE</small>
+                            <p class="fw-bold">{{ project.end_date.strftime('%B %Y') }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Gallery Carousel (if multiple images) -->
+{% if project.images %}
+<section class="py-5" style="background: var(--light-bg);">
+    <div class="container">
+        <h3 class="fw-bold mb-5">Project Gallery</h3>
+        {% set image_list = project.images.split(',') if project.images else [] %}
+        {% if image_list|length > 0 %}
+        <div id="projectCarousel" class="carousel slide" data-bs-ride="false">
+            <!-- Carousel Inner -->
+            <div class="carousel-inner rounded-4" style="overflow: hidden; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.15);">
+                {% for image in image_list %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}" style="height: 500px; background: var(--dark-bg);">
+                    <img src="{{ url_for('static', filename='images/' + image.strip()) }}" alt="Project Image {{ loop.index }}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Previous Button -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev" style="left: -60px;">
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%2310b981%22 viewBox=%220 0 8 8%22%3E%3Cpath d=%22M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z%22/%3E%3C/svg%3E'); width: 40px; height: 40px;"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+
+            <!-- Next Button -->
+            <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next" style="right: -60px;">
+                <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%2310b981%22 viewBox=%220 0 8 8%22%3E%3Cpath d=%22M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z%22/%3E%3C/svg%3E'); width: 40px; height: 40px;"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+            <!-- Carousel Indicators -->
+            {% if image_list|length > 1 %}
+            <div class="carousel-indicators" style="bottom: -50px;">
+                {% for image in image_list %}
+                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %} style="background-color: #10b981; width: 12px; height: 12px; border-radius: 50%;" aria-label="Slide {{ loop.index }}"></button>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Image Counter -->
+        <div class="text-center mt-5" style="color: var(--text-muted);">
+            <small>Image <span id="currentImage">1</span> of <span>{{ image_list|length }}</span></small>
+        </div>
+
+        <script>
+            // Update image counter when carousel slides
+            const carousel = document.getElementById('projectCarousel');
+            const currentImageSpan = document.getElementById('currentImage');
+            
+            carousel.addEventListener('slid.bs.carousel', function(event) {
+                currentImageSpan.textContent = event.to + 1;
+            });
+        </script>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Related Projects -->
+<section class="py-5" style="background: var(--dark-bg);">
+    <div class="container">
+        <h3 class="fw-bold mb-5">Other Projects</h3>
+        <div class="row g-4">
+            {% set other_projects = projects | default([]) %}
+            {% for proj in projects %}
+                {% if proj.id != project.id %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 h-100" style="background: var(--light-bg); transition: all 0.3s ease; cursor: pointer;" 
+                         onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                        {% if proj.featured_image %}
+                        <img src="{{ url_for('static', filename='images/' + proj.featured_image) }}" alt="{{ proj.title }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-code fa-3x" style="color: rgba(255, 255, 255, 0.3);"></i>
+                        </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ proj.title }}</h5>
+                            <p class="card-text small" style="color: var(--text-muted);">{{ proj.short_description or proj.description[:80] }}</p>
+                            <a href="{{ url_for('main.project_detail', project_id=proj.id) }}" class="btn btn-sm" style="background: #10b981; color: white;">
+                                View Project <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-white position-relative overflow-hidden">
+    <div class="position-absolute inset-0" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); z-index: -1; inset: 0;"></div>
+    <div class="container position-relative text-center" style="z-index: 1;">
+        <h2 class="display-5 fw-bold mb-3">Interested in a Project Like This?</h2>
+        <p class="lead mb-4 mx-auto" style="max-width: 600px; color: rgba(255, 255, 255, 0.95);">
+            Let's discuss your next project idea. I'm always open to new challenges and opportunities.
+        </p>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-light btn-lg px-5 rounded-pill">
+            <i class="fas fa-envelope me-2"></i>Get In Touch
+        </a>
+    </div>
+</section>
+{% endblock %}
