@@ -10,6 +10,7 @@ class ProjectForm(FlaskForm):
     github_url = StringField('GitHub URL', validators=[Optional(), URL()])
     project_url = StringField('Live Demo URL', validators=[Optional(), URL()])
     featured_image = StringField('Featured Image URL', validators=[Optional(), URL()])
+    images = TextAreaField('Gallery Images (JSON array)', validators=[Optional()])
     featured = BooleanField('Featured Project')
     status = SelectField('Status', choices=[('completed', 'Completed'), ('in-progress', 'In Progress'), ('planned', 'Planned')])
     display_order = IntegerField('Display Order', default=0)

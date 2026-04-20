@@ -44,6 +44,15 @@
                 <label for="featured_image">Featured Image URL</label>
                 {{ form.featured_image(class="form-control", id="featured_image") }}
             </div>
+
+            <div class="form-group">
+                <label for="images">Gallery Images (JSON array)</label>
+                {{ form.images(class="form-control", id="images", rows="5") }}
+                <small class="text-secondary">
+                Paste image URLs as a JSON array. Example:<br>
+                ["https://raw.githubusercontent.com/.../image1.png", "https://raw.githubusercontent.com/.../image2.png"]
+                </small>
+            </div>
             
             <div class="form-group">
                 <label for="featured">
