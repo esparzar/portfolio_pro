@@ -1,27 +1,25 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}Home - Full Stack Developer Portfolio{% endblock %}
+{% block title %}Emmanuel Amponsah - Full Stack Developer Portfolio{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
 <section class="hero-section text-white py-5" style="background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%); min-height: 600px; display: flex; align-items: center; position: relative; overflow: visible;">
-    <!-- Subtle Background Glow -->
-    <div style="position: absolute; top: -30%; right: 0%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(251, 191, 36, 0.08) 0%, transparent 70%); border-radius: 50%; filter: blur(80px); z-index: 0;"></div>
     
     <div class="container" style="position: relative; z-index: 1;">
         <div class="row align-items-center g-5">
             <!-- Image on Left -->
             <div class="col-lg-5">
                 <div style="position: relative; aspect-ratio: 3/4; max-width: 320px;">
-                    <!-- Subtle Glow Ring -->
-                    <div style="position: absolute; inset: -4px; background: linear-gradient(135deg, #fbbf24, #f59e0b, #fbbf24); border-radius: 50%; opacity: 0.3; animation: glow 3s ease-in-out infinite; z-index: -1;"></div>
+                    <!-- Solid Green Border -->
+                    <div style="position: absolute; inset: -6px; background: #10b981; border-radius: 50%; z-index: -1;"></div>
                     
                     <!-- Main Image Container -->
-                    <div style="width: 100%; height: 100%; overflow: hidden; border-radius: 50%; box-shadow: 0 15px 40px rgba(251, 191, 36, 0.2), inset 0 0 20px rgba(251, 191, 36, 0.05); background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);">
+                    <div style="width: 100%; height: 100%; overflow: hidden; border-radius: 50%; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2); background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
                         {% if url_for('static', filename='images/finalprofile.jpg') %}
                         <img src="{{ url_for('static', filename='images/finalprofile.jpg') }}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
                         {% else %}
-                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(251, 191, 36, 0.3) 0%, rgba(245, 158, 11, 0.3) 100%); font-size: 5rem;">
+                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(5, 150, 105, 0.3) 100%); font-size: 5rem;">
                             <i class="fas fa-code" style="color: rgba(255, 255, 255, 0.6);"></i>
                         </div>
                         {% endif %}
@@ -32,13 +30,13 @@
             <!-- Text on Right -->
             <div class="col-lg-7">
                 <div style="margin-bottom: 1.5rem;">
-                    <span class="badge" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: var(--darker-bg); padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 600;">🚀 Full Stack Developer</span>
+                    <span class="badge" style="background: #10b981; color: white; padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 600;">Full Stack Developer</span>
                 </div>
                 <h1 class="display-1 fw-bold mb-4 slide-in-left">
-                    Hi, I'm <span style="color: #fbbf24;">Emmanuel Amponsah</span>
+                    Hi, I'm <span style="color: #10b981;">Emmanuel Amponsah</span>
                 </h1>
                 <p class="lead mb-5 slide-in-left" style="color: #9ca3af; font-size: 1.25rem; line-height: 1.8;">
-                    I build <span style="color: #fbbf24;">blazing-fast digital products</span> that convert. From concept to code to cash flow—let's make your vision unstoppable.
+                    I build <span style="color: #10b981;">blazing-fast digital products</span> that convert. From concept to code to cash flow—let's make your vision unstoppable.
                 </p>
                 <div class="d-flex justify-content-start gap-3 mb-5 flex-wrap">
                     <a href="#projects" class="btn btn-light btn-lg px-5 rounded-pill">
@@ -66,7 +64,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card border-0 h-100" style="background: var(--dark-bg);">
                     <div class="card-body text-center">
-                        <i class="fas fa-code fa-3x mb-3" style="color: #fbbf24;"></i>
+                        <i class="fas fa-code fa-3x mb-3" style="color: #10b981;"></i>
                         <h5 class="card-title fw-bold">Frontend</h5>
                         <p class="card-text small" style="color: var(--text-muted);">HTML, CSS, Bootstrap, JavaScript</p>
                     </div>
@@ -75,7 +73,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card border-0 h-100" style="background: var(--dark-bg);">
                     <div class="card-body text-center">
-                        <i class="fas fa-server fa-3x mb-3" style="color: #fbbf24;"></i>
+                        <i class="fas fa-server fa-3x mb-3" style="color: #10b981;"></i>
                         <h5 class="card-title fw-bold">Backend</h5>
                         <p class="card-text small" style="color: var(--text-muted);">Python, Flask, FastAPI, Django</p>
                     </div>
@@ -84,7 +82,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card border-0 h-100" style="background: var(--dark-bg);">
                     <div class="card-body text-center">
-                        <i class="fas fa-database fa-3x mb-3" style="color: #fbbf24;"></i>
+                        <i class="fas fa-database fa-3x mb-3" style="color: #10b981;"></i>
                         <h5 class="card-title fw-bold">Database</h5>
                         <p class="card-text small" style="color: var(--text-muted);">PostgreSQL, MySQL, MongoDB</p>
                     </div>
@@ -93,7 +91,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card border-0 h-100" style="background: var(--dark-bg);">
                     <div class="card-body text-center">
-                        <i class="fas fa-tools fa-3x mb-3" style="color: #fbbf24;"></i>
+                        <i class="fas fa-tools fa-3x mb-3" style="color: #10b981;"></i>
                         <h5 class="card-title fw-bold">Tools</h5>
                         <p class="card-text small" style="color: var(--text-muted);">Docker, Git, Linux, AWS</p>
                     </div>
@@ -120,7 +118,7 @@
                         {% if project.featured_image %}
                         <img src="{{ url_for('static', filename='images/' + project.featured_image) }}" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
                         {% else %}
-                        <div style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
                             <i class="fas fa-code fa-3x" style="color: rgba(255, 255, 255, 0.6);"></i>
                         </div>
                         {% endif %}
@@ -129,7 +127,7 @@
                             <p class="card-text small" style="color: var(--text-muted);">{{ project.short_description or project.description[:100] }}</p>
                             {% if project.technologies %}
                             <div class="mb-3">
-                                <small style="color: #fbbf24;">
+                                <small style="color: #10b981;">
                                     {{ project.technologies }}
                                 </small>
                             </div>
@@ -163,7 +161,7 @@
 </section>
 
 <!-- CTA Section -->
-<section id="contact" class="py-5 text-white" style="background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);">
+<section id="contact" class="py-5 text-white" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
     <div class="container text-center">
         <h2 class="display-5 fw-bold mb-3">Ready to Work Together?</h2>
         <p class="lead mb-4 mx-auto" style="max-width: 600px;">Have a project in mind? Let's discuss how we can create something amazing together.</p>
