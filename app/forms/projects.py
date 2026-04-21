@@ -9,7 +9,7 @@ class ProjectForm(FlaskForm):
     technologies = StringField('Technologies (comma-separated)', validators=[Length(max=255)])
     github_url = StringField('GitHub URL', validators=[Optional(), URL()])
     project_url = StringField('Live Demo URL', validators=[Optional(), URL()])
-    featured_image = StringField('Featured Image URL', validators=[Optional(), URL()])
+    featured_image = StringField('Featured Image URL', validators=[Optional()])
     images = TextAreaField('Gallery Images (JSON array)', validators=[Optional()])
     featured = BooleanField('Featured Project')
     status = SelectField('Status', choices=[('completed', 'Completed'), ('in-progress', 'In Progress'), ('planned', 'Planned')])
