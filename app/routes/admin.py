@@ -57,6 +57,7 @@ def add_project():
             github_url=form.github_url.data,
             project_url=form.project_url.data,
             featured_image=form.featured_image.data,
+            images=form.images.data,
             featured=form.featured.data,
             status=form.status.data,
             display_order=form.display_order.data
@@ -86,6 +87,7 @@ def edit_project(id):
         project.github_url = form.github_url.data
         project.project_url = form.project_url.data
         project.featured_image = form.featured_image.data
+        project.images = form.images.data # Assuming this is a JSON string of image URLs
         project.featured = form.featured.data
         project.status = form.status.data
         project.display_order = form.display_order.data
