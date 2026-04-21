@@ -151,4 +151,19 @@ def create_app(config_name='development'):
         from datetime import datetime
         return {'current_year': datetime.utcnow().year}
     
+    import json
+
+    @app.template_filter('from_json')
+    def from_json_filter(value):
+        """Convert JSON string to Python object"""
+        if not value:
+            return []
+        try:
+            return json.loads(value)
+        except (json.JSONDecodeError, TypeError):
+            # If it's not valid JSON, return as is or split by comma
+            if isinstance(value, str) and ',' in value:
+                return [v.strip() for v in value.split(',')]
+            return [value] if value else []
+    
     return app
