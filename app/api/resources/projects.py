@@ -14,7 +14,7 @@ class ProjectResource(Resource):
         try:
             if project_id:
                 # Get single project
-                project = Project.query.get(project_id)
+                project = db.session.get(Project, project_id)
                 if not project:
                     return {'error': 'Project not found'}, 404
                 return {'project': project.to_dict()}, 200
@@ -42,7 +42,7 @@ class ProjectResource(Resource):
         try:
             # Verify admin access
             current_user_id = get_jwt_identity()
-            user = User.query.get(current_user_id)
+            user = db.session.get(User, current_user_id)
             
             if not user or not user.is_admin:
                 return {'error': 'Admin access required'}, 403
@@ -118,7 +118,7 @@ class ProjectDetailResource(Resource):
     def get(self, project_id):
         """Get a single project"""
         try:
-            project = Project.query.get(project_id)
+            project = db.session.get(Project, project_id)
             if not project:
                 return {'error': 'Project not found'}, 404
             return {'project': project.to_dict()}, 200
@@ -132,12 +132,12 @@ class ProjectDetailResource(Resource):
         """Update a project"""
         try:
             current_user_id = get_jwt_identity()
-            user = User.query.get(current_user_id)
+            user = db.session.get(User, current_user_id)
             
             if not user or not user.is_admin:
                 return {'error': 'Admin access required'}, 403
             
-            project = Project.query.get(project_id)
+            project = db.session.get(Project, project_id)
             if not project:
                 return {'error': 'Project not found'}, 404
             
@@ -181,12 +181,12 @@ class ProjectDetailResource(Resource):
         """Delete a project"""
         try:
             current_user_id = get_jwt_identity()
-            user = User.query.get(current_user_id)
+            user = db.session.get(User, current_user_id)
             
             if not user or not user.is_admin:
                 return {'error': 'Admin access required'}, 403
             
-            project = Project.query.get(project_id)
+            project = db.session.get(Project, project_id)
             if not project:
                 return {'error': 'Project not found'}, 404
             

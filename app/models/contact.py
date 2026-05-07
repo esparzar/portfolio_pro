@@ -32,7 +32,7 @@ class Contact(db.Model):
     @classmethod
     def mark_as_read(cls, contact_id):
         """Mark message as read"""
-        contact = cls.query.get(contact_id)
+        contact = db.session.get(cls, contact_id)
         if contact:
             contact.is_read = True
             db.session.commit()

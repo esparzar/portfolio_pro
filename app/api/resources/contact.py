@@ -132,7 +132,7 @@ class ContactResource(Resource):
         try:
             # Verify admin access
             current_user_id = get_jwt_identity()
-            user = User.query.get(current_user_id)
+            user = db.session.get(User, current_user_id)
             
             if not user or not user.is_admin:
                 return {
@@ -177,12 +177,12 @@ class ContactDetailResource(Resource):
         try:
             # Verify admin access
             current_user_id = get_jwt_identity()
-            user = User.query.get(current_user_id)
+            user = db.session.get(User, current_user_id)
             
             if not user or not user.is_admin:
                 return {'success': False, 'message': 'Admin access required'}, 403
             
-            contact = Contact.query.get(contact_id)
+            contact = db.session.get(Contact, contact_id)
             
             if not contact:
                 return {'success': False, 'message': 'Contact not found'}, 404
@@ -207,12 +207,12 @@ class ContactDetailResource(Resource):
         try:
             # Verify admin access
             current_user_id = get_jwt_identity()
-            user = User.query.get(current_user_id)
+            user = db.session.get(User, current_user_id)
             
             if not user or not user.is_admin:
                 return {'success': False, 'message': 'Admin access required'}, 403
             
-            contact = Contact.query.get(contact_id)
+            contact = db.session.get(Contact, contact_id)
             
             if not contact:
                 return {'success': False, 'message': 'Contact not found'}, 404
@@ -240,7 +240,7 @@ class ContactStatsResource(Resource):
         try:
             # Verify admin access
             current_user_id = get_jwt_identity()
-            user = User.query.get(current_user_id)
+            user = db.session.get(User, current_user_id)
             
             if not user or not user.is_admin:
                 return {'success': False, 'message': 'Admin access required'}, 403
