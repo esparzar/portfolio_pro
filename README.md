@@ -52,21 +52,23 @@ It includes:
 
 ---
 
-##  Project Structure
+###  Project Structure
+
+```text
 portfolio_pro/
-│
 ├── app/
-│ ├── models/
-│ ├── routes/
-│ ├── api/
-│ ├── templates/
-│ └── static/
+│   ├── api/
+│   ├── models/
+│   ├── routes/
+│   ├── templates/
+│   └── static/
 │
 ├── migrations/
 ├── config.py
-├── run.py
 ├── manage.py
+├── run.py
 └── README.md
+```
 
 
 ---
