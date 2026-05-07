@@ -88,15 +88,23 @@ class ProjectListResource(Resource):
         """Get all projects"""
         try:
             featured_only = request.args.get('featured', 'false').lower() == 'true'
+            limit = min(request.args.get('limit', 20, type=int), 100)
+            offset = max(request.args.get('offset', 0, type=int), 0)
             
             if featured_only:
-                projects = Project.get_featured()
+                query = Project.query.filter_by(featured=True).order_by(Project.display_order.asc(), Project.created_at.desc())
             else:
-                projects = Project.get_all_active()
+                query = Project.query.order_by(Project.display_order.asc(), Project.created_at.desc())
+
+            projects = query.offset(offset).limit(limit).all()
+            total = query.count()
             
             return {
                 'projects': [project.to_dict() for project in projects],
-                'count': len(projects)
+                'count': len(projects),
+                'total': total,
+                'limit': limit,
+                'offset': offset
             }, 200
             
         except Exception as e:
@@ -133,7 +141,7 @@ class ProjectDetailResource(Resource):
             if not project:
                 return {'error': 'Project not found'}, 404
             
-            data = request.get_json()
+            data = request.get_json() or {}
             
             if 'title' in data:
                 project.title = data['title']

@@ -18,7 +18,10 @@
         
         <div style="margin-top: 30px;">
             <a href="{{ url_for('admin.contacts') }}" class="btn secondary">Back to Messages</a>
-            <a href="{{ url_for('admin.delete_contact', id=contact.id) }}" class="btn secondary" onclick="return confirm('Delete this message?')">Delete</a>
+            <form method="POST" action="{{ url_for('admin.delete_contact', id=contact.id) }}" style="display: inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn secondary" onclick="return confirm('Delete this message?')">Delete</button>
+            </form>
         </div>
     </div>
 </div>

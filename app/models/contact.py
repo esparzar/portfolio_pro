@@ -6,13 +6,13 @@ class Contact(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), nullable=False)
-    service = db.Column(db.String(50))
+    email = db.Column(db.String(120), nullable=False, index=True)
+    service = db.Column(db.String(50), index=True)
     message = db.Column(db.Text, nullable=False)
     ip_address = db.Column(db.String(45))
     user_agent = db.Column(db.String(255))
-    is_read = db.Column(db.Boolean, default=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    is_read = db.Column(db.Boolean, default=False, index=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     
     def save(self):
         """Save contact to database"""

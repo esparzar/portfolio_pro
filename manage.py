@@ -21,7 +21,7 @@ def init_db():
 @app.cli.command()
 @click.option('--username', default='admin', help='Admin username')
 @click.option('--email', default='admin@portfolio.com', help='Admin email')
-@click.option('--password', default='admin123', help='Admin password')
+@click.option('--password', prompt=True, hide_input=True, confirmation_prompt=True, help='Admin password')
 def create_admin(username, email, password):
     """Create admin user."""
     admin = User(username=username, email=email, is_admin=True)

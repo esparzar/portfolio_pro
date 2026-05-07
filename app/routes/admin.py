@@ -36,8 +36,10 @@ def projects():
         flash('Access denied.', 'error')
         return redirect(url_for('main.index'))
     
-    projects = Project.query.order_by(Project.display_order).all()
-    return render_template('admin/projects.html', projects=projects)
+    page = request.args.get('page', 1, type=int)
+    per_page = min(request.args.get('per_page', 20, type=int), 100)
+    projects = Project.query.order_by(Project.display_order).paginate(page=page, per_page=per_page, error_out=False)
+    return render_template('admin/projects.html', projects=projects.items, pagination=projects)
 
 @admin_bp.route('/projects/add', methods=['GET', 'POST'])
 @login_required
@@ -97,7 +99,7 @@ def edit_project(id):
     
     return render_template('admin/project_form.html', form=form, title='Edit Project', project=project)
 
-@admin_bp.route('/projects/delete/<int:id>')
+@admin_bp.route('/projects/delete/<int:id>', methods=['POST'])
 @login_required
 def delete_project(id):
     if not current_user.is_admin:
@@ -117,8 +119,10 @@ def contacts():
         flash('Access denied.', 'error')
         return redirect(url_for('main.index'))
     
-    contacts = Contact.query.order_by(Contact.created_at.desc()).all()
-    return render_template('admin/contacts.html', contacts=contacts)
+    page = request.args.get('page', 1, type=int)
+    per_page = min(request.args.get('per_page', 20, type=int), 100)
+    contacts = Contact.query.order_by(Contact.created_at.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    return render_template('admin/contacts.html', contacts=contacts.items, pagination=contacts)
 
 @admin_bp.route('/contacts/view/<int:id>')
 @login_required
@@ -134,7 +138,7 @@ def view_contact(id):
     
     return render_template('admin/contact_detail.html', contact=contact)
 
-@admin_bp.route('/contacts/delete/<int:id>')
+@admin_bp.route('/contacts/delete/<int:id>', methods=['POST'])
 @login_required
 def delete_contact(id):
     if not current_user.is_admin:

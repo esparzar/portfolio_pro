@@ -10,6 +10,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import logging
 import os
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Initialize extensions
 db = SQLAlchemy()
@@ -27,13 +28,18 @@ def create_app(config_name='development'):
     # Load configuration
     from config import config
     app.config.from_object(config[config_name])
+    _validate_production_config(app, config_name)
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
     
     # Initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
     limiter.init_app(app)
     jwt.init_app(app)
-    cors.init_app(app)
+    cors.init_app(
+        app,
+        resources={r"/api/*": {"origins": app.config.get('CORS_ORIGINS', []) or "*"}}
+    )
     migrate.init_app(app, db)
     csrf.init_app(app)
     
@@ -96,39 +102,6 @@ def create_app(config_name='development'):
         return render_template('errors/404.html'), 401
     
     # ============================================
-    # AUTO CREATE ADMIN USER
-    # ============================================
-    
-    with app.app_context():
-        db.create_all()
-        
-        from app.models.user import User
-        import os
-        
-        # Check if admin exists
-        admin = User.query.filter_by(username='admin').first()
-        
-        if not admin:
-            # Try to get admin password from environment variable
-            admin_password = os.environ.get('ADMIN_PASSWORD', 'admin123')
-            admin_username = os.environ.get('ADMIN_USERNAME', 'admin')
-            admin_email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
-            
-            admin = User(
-                username=admin_username,
-                email=admin_email,
-                is_admin=True,
-                is_active=True
-            )
-            admin.set_password(admin_password)
-            db.session.add(admin)
-            db.session.commit()
-            app.logger.info(f'Auto-created admin user: {admin_username}')
-            print(f'✅ Auto-created admin user: {admin_username}')
-        else:
-            print(f'✓ Admin user already exists: {admin.username}')
-    
-    # ============================================
     # USER LOADER FOR FLASK-LOGIN
     # ============================================
     
@@ -167,3 +140,17 @@ def create_app(config_name='development'):
             return [value] if value else []
     
     return app
+
+
+def _validate_production_config(app, config_name):
+    """Fail fast for missing critical production configuration."""
+    if config_name != 'production':
+        return
+
+    secret_key = app.config.get('SECRET_KEY')
+    db_uri = app.config.get('SQLALCHEMY_DATABASE_URI')
+
+    if not secret_key or secret_key == 'dev-secret-key-change-in-production':
+        raise RuntimeError('SECRET_KEY must be set to a secure value in production')
+    if not db_uri:
+        raise RuntimeError('DATABASE_URL must be set in production')

@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask import request
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from app import db
+from app import db, limiter
 from app.models.user import User
 import logging
 
@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 class AuthResource(Resource):
     
+    @limiter.limit("10 per minute")
     def post(self):
         """Login user and return JWT token"""
         parser = reqparse.RequestParser()
@@ -101,6 +102,7 @@ class AuthResource(Resource):
 class RegisterResource(Resource):
     """User registration resource"""
     
+    @limiter.limit("5 per hour")
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, required=True)
