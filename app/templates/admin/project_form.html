@@ -41,16 +41,20 @@
             </div>
             
             <div class="form-group">
-                <label for="featured_image">Featured Image URL</label>
-                {{ form.featured_image(class="form-control", id="featured_image") }}
+                <label for="featured_image">Featured image (static path or URL)</label>
+                {{ form.featured_image(class="form-control", id="featured_image", placeholder="project/homepage-hero.png") }}
+                <small class="text-secondary">
+                Relative to <code>static/images/</code>, e.g. <code>project/homepage-hero.png</code>.
+                You can also paste a full <code>https://</code> image URL.
+                </small>
             </div>
 
             <div class="form-group">
-                <label for="images">Gallery Images (JSON array)</label>
+                <label for="images">Gallery images (JSON array or comma-separated)</label>
                 {{ form.images(class="form-control", id="images", rows="5") }}
                 <small class="text-secondary">
-                Paste image URLs as a JSON array. Example:<br>
-                ["https://raw.githubusercontent.com/.../image1.png", "https://raw.githubusercontent.com/.../image2.png"]
+                Static paths under <code>static/images/</code> (no leading <code>images/</code>), or full URLs. Example JSON:<br>
+                <code>["project/projects-section.png", "project/admin-dashboard.png", "https://example.com/shot.png"]</code>
                 </small>
             </div>
             

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_limiter import Limiter
@@ -20,6 +20,14 @@ jwt = JWTManager()
 cors = CORS()
 migrate = Migrate()
 csrf = CSRFProtect()
+
+# DB/admin may use friendly names; files on disk use screenshot filenames.
+PROJECT_IMAGE_ALIASES = {
+    'portfolio-home.png': 'homepage-hero.png',
+    'portfolio-admin-dashboard.png': 'admin-dashboard.png',
+    'portfolio-about.png': 'projects-section.png',
+}
+
 
 def create_app(config_name='development'):
     """Application factory"""
@@ -138,7 +146,56 @@ def create_app(config_name='development'):
             if isinstance(value, str) and ',' in value:
                 return [v.strip() for v in value.split(',')]
             return [value] if value else []
-    
+
+    @app.template_filter('static_image')
+    def static_image_filter(path):
+        """Resolve a static image path or external URL for use in img src."""
+        from flask import current_app
+
+        if path is None:
+            return ''
+        path = str(path).strip()
+        if not path:
+            return ''
+        lower = path.lower()
+        if lower.startswith('http://') or lower.startswith('https://'):
+            return path
+        path = path.lstrip('/')
+        # Truncated extension from some clients (e.g. .pn)
+        if lower.endswith('.pn') and not lower.endswith('.png'):
+            path = path[:-3] + '.png'
+        static_root = os.path.join(current_app.root_path, 'static')
+
+        initial = []
+        if path.startswith('images/'):
+            initial.append(path)
+        else:
+            initial.append(f'images/{path}')
+            if '/' not in path:
+                initial.append(f'images/project/{path}')
+
+        ordered = []
+        seen = set()
+
+        def add_candidate(rel_path):
+            if rel_path and rel_path not in seen:
+                seen.add(rel_path)
+                ordered.append(rel_path)
+
+        for rel in initial:
+            add_candidate(rel)
+            basename = os.path.basename(rel)
+            mapped = PROJECT_IMAGE_ALIASES.get(basename.lower())
+            if mapped:
+                add_candidate(f'images/project/{mapped}')
+
+        for filename in ordered:
+            full_path = os.path.join(static_root, filename)
+            if os.path.isfile(full_path):
+                return url_for('static', filename=filename)
+
+        return url_for('static', filename=ordered[0])
+
     return app
 
 
