@@ -46,7 +46,7 @@ class DevelopmentConfig(Config):
     """Development configuration"""
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///portfolio.db'
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
 
 class ProductionConfig(Config):
     """Production configuration"""
