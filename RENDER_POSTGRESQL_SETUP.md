@@ -47,6 +47,20 @@ After deployment:
 
 ## Troubleshooting
 
+### Deploy crash: `ImportError: cannot import name 'Options' from 'jwt.types'`
+
+This happens when the wrong **`jwt`** PyPI package is installed alongside **`PyJWT`** (both install a top-level `jwt` module). Flask-JWT-Extended needs **PyJWT** only.
+
+**Fix:** In your Render web service → **Settings** → **Build & Deploy** → **Build Command**, set:
+
+```bash
+bash build.sh
+```
+
+(`build.sh` removes the conflicting `jwt` package and installs `requirements.txt`.)
+
+Then **Manual Deploy** → **Clear build cache & deploy**.
+
 ### Projects still disappearing?
 **Check:**
 - [ ] DATABASE_URL environment variable is set on Render

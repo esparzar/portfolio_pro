@@ -18,6 +18,8 @@ greenlet==3.2.4
 
 # Authentication & Security
 bcrypt==4.0.1
+# PyJWT only — do NOT install the unrelated PyPI package named "jwt" (conflicts at import path).
+# On Render set Build Command to: bash build.sh
 PyJWT==2.10.1
 WTForms==3.0.1
 email-validator==2.0.0
