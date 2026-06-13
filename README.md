@@ -1,144 +1,154 @@
-# Portfolio Pro 
+# Portfolio Pro
 
-A full-stack developer portfolio web application built with Flask, PostgreSQL, and modern frontend design principles.  
-It includes a dynamic project showcase, admin dashboard, authentication system, and production-ready architecture.
+Portfolio Pro is a production-oriented personal portfolio platform built with Flask and PostgreSQL. It includes a public portfolio site, admin content management screens, contact capture, REST API endpoints, authentication, migrations, and Render-ready deployment configuration.
 
----
+Live demo: https://emmanuel-amponsah.onrender.com
 
-## Live Demo
-https://emmanuel-amponsah.onrender.com
+## Features
 
----
+- Public homepage, about page, project listing, project detail pages, and contact form
+- Admin dashboard for project and contact management
+- Flask-Login authentication for browser admin sessions
+- JWT-protected API endpoints for admin API operations
+- SQLAlchemy models with Flask-Migrate migrations
+- Contact persistence with optional SMTP notification
+- Custom error pages for common failures
+- Health endpoint at `/health` for deployment checks
+- Pytest test structure with unit and integration coverage
+- Ruff, Black, isort, and GitHub Actions CI preparation
 
-##  Overview
+## Tech Stack
 
-Portfolio Pro is more than a portfolio — it’s a full-stack web system designed to demonstrate real-world engineering skills.
+- Python, Flask, SQLAlchemy, Flask-Migrate
+- Flask-Login, Flask-WTF, WTForms
+- Flask-RESTful, Flask-JWT-Extended, Flask-Limiter
+- PostgreSQL in production, SQLite fallback for local development
+- Gunicorn and Render for deployment
+- pytest, pytest-flask, factory-boy
 
-It includes:
-- Dynamic project management system
-- Admin dashboard for content control
-- Authentication system
-- Contact form with email integration
-- PostgreSQL database with migrations
-- RESTful API structure
-
----
-
-##  Tech Stack
-
-### Frontend
-- HTML5
-- CSS3
-- Bootstrap / Tailwind
-- JavaScript
-
-### Backend
-- Python
-- Flask
-- Flask-Login
-- Flask-Migrate
-- Flask-WTF
-
-### Database
-- PostgreSQL
-- SQLAlchemy ORM
-- Alembic Migrations
-
-### DevOps / Tools
-- Docker (optional setup)
-- Git & GitHub
-- Render deployment
-- Linux server environment
-
----
-
-###  Project Structure
+## Architecture
 
 ```text
 portfolio_pro/
 ├── app/
+│   ├── admin/
 │   ├── api/
+│   ├── auth/
+│   ├── errors/
+│   ├── forms/
+│   ├── main/
 │   ├── models/
-│   ├── routes/
+│   ├── services/
+│   ├── static/
 │   ├── templates/
-│   └── static/
-│
+│   ├── utils/
+│   └── __init__.py
+├── docs/
 ├── migrations/
+├── scripts/
+├── tests/
 ├── config.py
 ├── manage.py
 ├── run.py
-└── README.md
+├── wsgi.py
+└── requirements.txt
 ```
 
+The application uses the Flask application factory pattern. Feature routes are grouped into `main`, `auth`, and `admin` blueprints, while JSON endpoints are registered from `app/api`. Shared infrastructure such as logging, error handlers, template filters, and extension initialization is centralized.
 
----
+## Installation
 
-##  Features
+This project uses `proenv` as the official local virtual environment directory.
 
-###  User Features
-- View projects
-- Read about developer
-- Send contact messages
+```bash
+git clone <repository-url>
+cd portfolio_pro
+python -m venv proenv
+source proenv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+```
 
-###  Admin Features
-- Create / edit / delete projects
-- View contact messages
-- Manage portfolio content dynamically
+Update `.env` with local secrets and database settings before running production-like workflows.
 
-### ⚡ System Features
-- REST API layer
-- Database migrations
-- Clean MVC architecture
-- Scalable project structure
+## Environment Variables
 
----
+Key variables:
 
-##  Architecture Highlights
+- `FLASK_CONFIG`: `local`, `development`, `testing`, or `production`
+- `SECRET_KEY`: Flask session signing secret
+- `JWT_SECRET_KEY`: JWT signing secret
+- `DATABASE_URL`: PostgreSQL connection URL
+- `ADMIN_EMAIL`: notification recipient
+- `MAIL_SERVER`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`: SMTP configuration
+- `CORS_ORIGINS`: comma-separated allowed API origins
+- `REDIS_URL`: optional rate-limit storage backend
 
-- Modular Flask blueprint structure
-- Separation of concerns (routes, models, services)
-- SQLAlchemy ORM for clean DB abstraction
-- Production-ready configuration handling
-- Migration-based database updates
+See `.env.example` for a complete template.
 
----
+## Database Setup
 
-##  Deployment
+For local SQLite fallback, no PostgreSQL URL is required. For PostgreSQL, set `DATABASE_URL`, then run:
 
-Deployed on Render using:
-- Gunicorn WSGI server
-- PostgreSQL database
-- Environment variable configuration
+```bash
+flask --app manage.py db upgrade
+flask --app manage.py create-admin
+```
 
----
+## Running Locally
+
+```bash
+python run.py
+```
+
+The app runs at `http://localhost:5000` by default.
+
+## Testing
+
+```bash
+pytest
+```
+
+Quality checks:
+
+```bash
+ruff check .
+black --check .
+isort --check-only .
+```
+
+## Deployment
+
+Render configuration:
+
+- Build command: `bash build.sh`
+- Start command: `gunicorn wsgi:app`
+- Environment: `FLASK_CONFIG=production`
+- Health check path: `/health`
+
+Run migrations with `flask db upgrade` from a trusted deployment shell or release process.
+
+## Screenshots
+
+Add screenshots for:
+
+- Homepage
+- Projects page
+- Project detail page
+- Admin dashboard
+- Contact workflow
+
+Current static project screenshots live under `app/static/images/project/`.
 
 ## Future Improvements
 
-- Redis caching layer
-- Celery background jobs for email handling
-- API authentication with JWT
-- CI/CD pipeline (GitHub Actions)
-- Unit and integration tests
+- Add coverage reporting thresholds in CI
+- Add API schema validation with Marshmallow or Pydantic
+- Move email delivery to a background worker if traffic grows
+- Add Redis-backed rate limiting in production
+- Add admin audit logging for content changes
+- Add browser-level smoke tests for critical public pages
 
----
+## License
 
-## 👨‍💻 Developer
-
-**Emmanuel Amponsah**  
-Full Stack Developer (Python / Flask)
-
----
-
-##  Purpose
-
-This project demonstrates:
-- Real-world backend engineering skills
-- Production deployment experience
-- Full-stack architecture understanding
-- Ability to build scalable web systems
-
----
-
-##  License
-
-This project is open for learning and portfolio demonstration purposes.
+This project is maintained as a professional portfolio and learning resource.

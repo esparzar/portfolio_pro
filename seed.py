@@ -1,12 +1,13 @@
 #!/usr/bin/env python
-"""Create admin user and optional demo project with static screenshots."""
+"""Seed optional demo project data and create an admin only when configured."""
 import json
+import os
 
 from app import create_app, db
-from app.models.user import User
 from app.models.project import Project
+from app.models.user import User
 
-app = create_app()
+app = create_app(os.getenv("FLASK_CONFIG") or "development")
 
 PORTFOLIO_GALLERY_PATHS = [
     "project/projects-section.png",
@@ -17,9 +18,32 @@ PORTFOLIO_GALLERY_PATHS = [
 ]
 
 
+def seed_admin_user():
+    username = os.getenv("ADMIN_USERNAME", "admin")
+    email = os.getenv("ADMIN_USER_EMAIL", "admin@example.com")
+    password = os.getenv("ADMIN_PASSWORD")
+
+    admin = User.query.filter_by(username=username).first()
+    if admin:
+        print(f"Admin user already exists: {admin.username}")
+        return
+
+    if not password:
+        print("Skipping admin creation. Set ADMIN_PASSWORD to seed an admin user.")
+        return
+
+    admin = User(username=username, email=email, is_admin=True, is_active=True)
+    admin.set_password(password)
+    db.session.add(admin)
+    db.session.commit()
+    print(f"Admin user created: {username}")
+
+
 def seed_demo_portfolio_project():
     if Project.query.count() > 0:
+        print("Project data already exists. Skipping demo project.")
         return
+
     project = Project(
         title="Portfolio Pro",
         description=(
@@ -36,37 +60,9 @@ def seed_demo_portfolio_project():
     )
     db.session.add(project)
     db.session.commit()
-    print("✅ Demo project seeded (featured_image + gallery use static PNGs under images/project/).")
+    print("Demo project seeded.")
 
 
 with app.app_context():
-    # Check if admin exists
-    admin = User.query.filter_by(username='admin').first()
-
-    if not admin:
-        admin = User(
-            username='admin',
-            email='admin@example.com',
-            is_admin=True,
-            is_active=True
-        )
-        # Change 'your-password-here' to a secure password
-        admin.set_password('your-password-here')
-
-        db.session.add(admin)
-        db.session.commit()
-        print("✅ Admin user created!")
-        print("   Username: admin")
-        print("   Password: your-password-here")
-    else:
-        print("✅ Admin user already exists")
-        print(f"   Username: {admin.username}")
-        print(f"   Email: {admin.email}")
-
+    seed_admin_user()
     seed_demo_portfolio_project()
-
-# List all users
-print("\n📋 All users in database:")
-users = User.query.all()
-for user in users:
-    print(f"   - {user.username} (Admin: {user.is_admin})")

@@ -1,16 +1,26 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, BooleanField, IntegerField, SelectField
-from wtforms.validators import DataRequired, Length, URL, Optional
+from wtforms import BooleanField, IntegerField, SelectField, StringField, TextAreaField
+from wtforms.validators import URL, DataRequired, Length, Optional
+
 
 class ProjectForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired(), Length(max=100)])
-    description = TextAreaField('Description', validators=[DataRequired()])
-    short_description = StringField('Short Description', validators=[Length(max=255)])
-    technologies = StringField('Technologies (comma-separated)', validators=[Length(max=255)])
-    github_url = StringField('GitHub URL', validators=[Optional(), URL()])
-    project_url = StringField('Live Demo URL', validators=[Optional(), URL()])
-    featured_image = StringField('Featured image path or URL', validators=[Optional(), Length(max=255)])
-    images = TextAreaField('Gallery images (JSON or comma-separated)', validators=[Optional()])
-    featured = BooleanField('Featured Project')
-    status = SelectField('Status', choices=[('completed', 'Completed'), ('in-progress', 'In Progress'), ('planned', 'Planned')])
-    display_order = IntegerField('Display Order', default=0)
+    title = StringField("Title", validators=[DataRequired(), Length(max=100)])
+    description = TextAreaField("Description", validators=[DataRequired()])
+    short_description = StringField("Short Description", validators=[Length(max=255)])
+    technologies = StringField("Technologies (comma-separated)", validators=[Length(max=255)])
+    github_url = StringField("GitHub URL", validators=[Optional(), URL()])
+    project_url = StringField("Live Demo URL", validators=[Optional(), URL()])
+    featured_image = StringField(
+        "Featured image path or URL", validators=[Optional(), Length(max=255)]
+    )
+    images = TextAreaField("Gallery images (JSON or comma-separated)", validators=[Optional()])
+    featured = BooleanField("Featured Project")
+    status = SelectField(
+        "Status",
+        choices=[
+            ("completed", "Completed"),
+            ("in-progress", "In Progress"),
+            ("planned", "Planned"),
+        ],
+    )
+    display_order = IntegerField("Display Order", default=0)

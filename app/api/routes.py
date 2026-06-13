@@ -1,15 +1,8 @@
-from flask import Blueprint
-from flask_restful import Api
-from app.api.resources.contact import ContactResource, ContactDetailResource
-from app.api.resources.projects import ProjectResource, ProjectListResource
-from app.api.resources.auth import AuthResource
+"""Backward-compatible API registration module.
 
-api_bp = Blueprint('api', __name__, url_prefix='/api')
-api = Api(api_bp)
+New applications should import `register_api` from `app.api`.
+"""
 
-# Register resources
-api.add_resource(ContactResource, '/contact')
-api.add_resource(ContactDetailResource, '/contact/<int:contact_id>')
-api.add_resource(ProjectListResource, '/projects')
-api.add_resource(ProjectResource, '/projects/<int:project_id>')
-api.add_resource(AuthResource, '/auth')
+from app.api import register_api
+
+__all__ = ["register_api"]

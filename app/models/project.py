@@ -1,9 +1,11 @@
 from datetime import datetime
+
 from app import db
 
+
 class Project(db.Model):
-    __tablename__ = 'projects'
-    
+    __tablename__ = "projects"
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False, index=True)
     description = db.Column(db.Text, nullable=False)
@@ -18,46 +20,46 @@ class Project(db.Model):
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
     display_order = db.Column(db.Integer, default=0, index=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='SET NULL'))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="SET NULL"))
     created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
+
     # Relationship
-    #user = db.relationship("User", backref="projects")
-    
+    # user = db.relationship("User", backref="projects")
+
     @classmethod
     def get_all_active(cls):
         return cls.query.order_by(cls.display_order.asc(), cls.created_at.desc()).all()
-    
+
     @classmethod
     def get_featured(cls):
         return cls.query.filter_by(featured=True).order_by(cls.display_order).all()
-    
+
     def get_technologies_list(self):
         if self.technologies:
-            return [tech.strip() for tech in self.technologies.split(',')]
+            return [tech.strip() for tech in self.technologies.split(",")]
         return []
-    
+
     def __repr__(self):
         return f"<Project {self.title}>"
 
     def to_dict(self):
         """Convert project to dictionary."""
         return {
-            'id': self.id,
-            'title': self.title,
-            'description': self.description,
-            'short_description': self.short_description,
-            'technologies': self.technologies,
-            'project_url': self.project_url,
-            'github_url': self.github_url,
-            'featured_image': self.featured_image,
-            'images': self.images,
-            'status': self.status,
-            'featured': self.featured,
-            'start_date': self.start_date.isoformat() if self.start_date else None,
-            'end_date': self.end_date.isoformat() if self.end_date else None,
-            'display_order': self.display_order,
-            'created_at': self.created_at.isoformat() if self.created_at else None,
-            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "short_description": self.short_description,
+            "technologies": self.technologies,
+            "project_url": self.project_url,
+            "github_url": self.github_url,
+            "featured_image": self.featured_image,
+            "images": self.images,
+            "status": self.status,
+            "featured": self.featured,
+            "start_date": self.start_date.isoformat() if self.start_date else None,
+            "end_date": self.end_date.isoformat() if self.end_date else None,
+            "display_order": self.display_order,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
         }

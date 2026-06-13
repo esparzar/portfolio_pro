@@ -1,0 +1,79 @@
+from flask import Blueprint, current_app, flash, redirect, render_template, request, url_for
+
+from app.forms.contact import ContactForm
+from app.models.contact import Contact
+from app.models.project import Project
+from app.services.email_service import send_email
+
+main_bp = Blueprint("main", __name__)
+
+
+@main_bp.route("/")
+def index():
+    """Home page."""
+    featured_projects = Project.get_featured()
+    return render_template("main/index.html", featured_projects=featured_projects)
+
+
+@main_bp.route("/about")
+def about():
+    """About page."""
+    return render_template("main/about.html")
+
+
+@main_bp.route("/projects")
+def projects():
+    """Projects page."""
+    projects = Project.get_all_active()
+    return render_template("main/projects.html", projects=projects)
+
+
+@main_bp.route("/projects/<int:project_id>")
+def project_detail(project_id):
+    """Project detail page."""
+    project = Project.query.get_or_404(project_id)
+    return render_template("main/project_detail.html", project=project)
+
+
+@main_bp.route("/health")
+def health_check():
+    """Health endpoint for Render and CI startup checks."""
+    return {"status": "ok"}, 200
+
+
+@main_bp.route("/contact", methods=["GET", "POST"])
+def contact():
+    """Contact page with form handling."""
+    form = ContactForm()
+
+    if request.method == "POST" and form.validate_on_submit():
+        contact = Contact(
+            name=form.name.data,
+            email=form.email.data,
+            service=form.service.data,
+            message=form.message.data,
+            ip_address=request.remote_addr,
+            user_agent=str(request.user_agent) if request.user_agent else None,
+        )
+        contact.save()
+
+        try:
+            send_email(
+                subject=f"New Contact from {form.name.data}",
+                recipients=[current_app.config["ADMIN_EMAIL"]],
+                body=f"""
+Name: {form.name.data}
+Email: {form.email.data}
+Service: {form.service.data}
+Message: {form.message.data}
+IP: {request.remote_addr}
+                """,
+            )
+            flash("Thank you for your message! I will get back to you within 24 hours.", "success")
+        except Exception as exc:
+            current_app.logger.error("Email failed: %s", exc)
+            flash("Your message has been saved. I will contact you soon.", "success")
+
+        return redirect(url_for("main.contact"))
+
+    return render_template("main/contact.html", form=form)
