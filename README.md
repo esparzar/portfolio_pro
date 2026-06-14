@@ -103,6 +103,53 @@ python run.py
 
 The app runs at `http://localhost:5000` by default.
 
+## Running With Docker
+
+Copy the example environment file and adjust secrets before starting containers:
+
+```bash
+cp .env.example .env
+```
+
+For Docker, `DATABASE_URL` must use the Compose database hostname:
+
+```text
+postgresql://portfolio_user:portfolio_password@db:5432/portfolio_pro
+```
+
+Build and start the application:
+
+```bash
+docker compose config
+docker compose build
+docker compose up
+```
+
+Open the app at `http://127.0.0.1:5000` and check health at `http://127.0.0.1:5000/health`.
+
+Run migrations and verification commands in the running `web` container:
+
+```bash
+docker compose exec web flask db upgrade
+docker compose exec web pytest
+docker compose exec web python scripts/verify_startup.py
+```
+
+Stop containers:
+
+```bash
+docker compose down
+```
+
+Reset the local Docker database volume:
+
+```bash
+docker compose down -v
+docker compose up --build
+```
+
+If `web` cannot connect to PostgreSQL, confirm `.env` uses `POSTGRES_HOST=db` and a `DATABASE_URL` with `@db:5432`, not `@localhost:5432`.
+
 ## Testing
 
 ```bash

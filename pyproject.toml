@@ -5,6 +5,7 @@ target-version = ["py311"]
 [tool.isort]
 profile = "black"
 line_length = 100
+skip = ["migrations", "proenv"]
 
 [tool.ruff]
 line-length = 100
@@ -20,3 +21,66 @@ pythonpath = ["."]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "-ra"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+exclude = ["migrations", "proenv"]
+
+# Flask ecosystem packages used here are partially or completely untyped.
+[[tool.mypy.overrides]]
+module = [
+    "flask_cors.*",
+    "flask_login.*",
+    "flask_migrate.*",
+    "flask_restful.*",
+    "flask_wtf.*",
+    "wtforms.*",
+]
+ignore_missing_imports = true
+
+# Existing app/test modules are not fully annotated yet; keep strict mode enabled
+# while avoiding a behavior-changing annotation rewrite in this pass.
+[[tool.mypy.overrides]]
+module = [
+    "app",
+    "app.*",
+    "check_db_config",
+    "config",
+    "conftest",
+    "factories.*",
+    "integration.*",
+    "manage",
+    "run",
+    "scripts.*",
+    "seed",
+    "test_api",
+    "test_auth_admin",
+    "test_forms",
+    "test_models",
+    "test_pages",
+    "unit.*",
+    "verify_startup",
+    "wsgi",
+]
+disallow_untyped_defs = false
+disallow_untyped_calls = false
+
+# Dynamic Flask-SQLAlchemy, Flask-WTF, and Flask-RESTful base classes expose Any.
+[[tool.mypy.overrides]]
+module = [
+    "app.api.resources.*",
+    "app.forms.*",
+    "app.models.*",
+]
+disable_error_code = ["misc", "name-defined"]
+
+# Flask's test client assignment is a runtime extension hook.
+[[tool.mypy.overrides]]
+module = "app"
+disable_error_code = ["method-assign"]
+
+# factory-boy dynamically adds model attributes that mypy cannot see.
+[[tool.mypy.overrides]]
+module = "factories.*"
+disable_error_code = ["attr-defined"]
