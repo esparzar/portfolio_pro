@@ -19,7 +19,7 @@ migrate = Migrate()
 csrf = CSRFProtect()
 
 
-def create_app(config_name=None):
+def create_app(config_name: str | None = None) -> Flask:
     """Application factory."""
     app = Flask(__name__, static_folder="static", static_url_path="/static")
 
@@ -49,7 +49,7 @@ def create_app(config_name=None):
     return app
 
 
-def _init_extensions(app):
+def _init_extensions(app: Flask) -> None:
     db.init_app(app)
     login_manager.init_app(app)
     limiter.init_app(app)
@@ -62,7 +62,7 @@ def _init_extensions(app):
     csrf.init_app(app)
 
 
-def _register_blueprints(app):
+def _register_blueprints(app: Flask) -> None:
     from app.admin import admin_bp
     from app.auth import auth_bp
     from app.main import main_bp
@@ -72,9 +72,9 @@ def _register_blueprints(app):
     app.register_blueprint(admin_bp, url_prefix="/admin")
 
 
-def _register_login(app):
-    @login_manager.user_loader
-    def load_user(user_id):
+def _register_login(app: Flask) -> None:
+    @login_manager.user_loader  # type: ignore[misc]
+    def load_user(user_id: str) -> object | None:
         from app.models.user import User
 
         return db.session.get(User, int(user_id))
@@ -84,7 +84,7 @@ def _register_login(app):
     login_manager.login_message_category = "info"
 
 
-def _validate_production_config(app, config_name):
+def _validate_production_config(app: Flask, config_name: str) -> None:
     """Fail fast for missing critical production configuration."""
     if config_name != "production":
         return

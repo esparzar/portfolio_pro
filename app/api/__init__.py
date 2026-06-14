@@ -1,3 +1,6 @@
+from typing import Any
+
+from flask import Flask
 from flask_restful import Api
 
 from app.api.resources.auth import AuthResource, RegisterResource
@@ -5,7 +8,7 @@ from app.api.resources.contact import ContactDetailResource, ContactResource, Co
 from app.api.resources.projects import ProjectDetailResource, ProjectListResource
 
 
-def register_api(app):
+def register_api(app: Flask) -> Any:
     """Register REST resources while preserving the existing API URL surface."""
     api = Api(app)
     api.add_resource(ContactResource, "/api/contacts", "/api/contacts/")

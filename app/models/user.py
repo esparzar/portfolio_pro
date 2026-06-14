@@ -1,9 +1,10 @@
-from datetime import datetime
+from typing import Any, Self, cast
 
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db
+from app.utils.datetime import utc_now
 
 
 class User(UserMixin, db.Model):
@@ -15,34 +16,34 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     is_active = db.Column(db.Boolean, default=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=utc_now)
     last_login = db.Column(db.DateTime)
 
     # projects = db.relationship('Project', back_populates='user', foreign_keys='Project.user_id')
 
-    def set_password(self, password):
+    def set_password(self, password: str) -> None:
         """Hash and set password"""
         self.password_hash = generate_password_hash(password, method="pbkdf2:sha256")
 
-    def check_password(self, password):
+    def check_password(self, password: str) -> bool:
         """Check password against hash"""
         return check_password_hash(self.password_hash, password)
 
     @classmethod
-    def authenticate(cls, username, password):
+    def authenticate(cls, username: str, password: str) -> Self | None:
         """Authenticate user"""
-        user = cls.query.filter_by(username=username, is_active=True).first()
+        user = cast(Self | None, cls.query.filter_by(username=username, is_active=True).first())
         if user and user.check_password(password):
-            user.last_login = datetime.utcnow()
+            user.last_login = utc_now()
             db.session.commit()
             return user
         return None
 
-    def get_id(self):
+    def get_id(self) -> str:
         """Return user ID for Flask-Login"""
         return str(self.id)
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, Any]:
         """Convert user to dictionary"""
         return {
             "id": self.id,

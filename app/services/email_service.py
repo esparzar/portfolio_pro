@@ -5,8 +5,12 @@ from email.mime.text import MIMEText
 
 from flask import current_app
 
+from app.models.contact import Contact
 
-def send_email(subject, recipients, body, html=None):
+
+def send_email(
+    subject: str, recipients: str | list[str], body: str, html: str | None = None
+) -> bool:
     """Send email using SMTP"""
     if isinstance(recipients, str):
         recipients = [recipients]
@@ -38,7 +42,7 @@ def send_email(subject, recipients, body, html=None):
         return False
 
 
-def send_contact_notification(contact):
+def send_contact_notification(contact: Contact) -> bool:
     """Send notification for new contact submission"""
     subject = f"New Contact: {contact.name}"
     body = f"""

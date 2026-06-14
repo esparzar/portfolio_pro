@@ -1,6 +1,7 @@
-from datetime import datetime
+from typing import Any, Self, cast
 
 from app import db
+from app.utils.datetime import utc_now
 
 
 class Contact(db.Model):
@@ -14,25 +15,27 @@ class Contact(db.Model):
     ip_address = db.Column(db.String(45))
     user_agent = db.Column(db.String(255))
     is_read = db.Column(db.Boolean, default=False, index=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    created_at = db.Column(db.DateTime, default=utc_now, index=True)
 
-    def save(self):
+    def save(self) -> None:
         """Save contact to database"""
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_unread(cls):
+    def get_unread(cls) -> list[Self]:
         """Get all unread messages"""
-        return cls.query.filter_by(is_read=False).order_by(cls.created_at.desc()).all()
+        return cast(
+            list[Self], cls.query.filter_by(is_read=False).order_by(cls.created_at.desc()).all()
+        )
 
     @classmethod
-    def get_all(cls):
+    def get_all(cls) -> list[Self]:
         """Get all messages"""
-        return cls.query.order_by(cls.created_at.desc()).all()
+        return cast(list[Self], cls.query.order_by(cls.created_at.desc()).all())
 
     @classmethod
-    def mark_as_read(cls, contact_id):
+    def mark_as_read(cls, contact_id: int) -> bool:
         """Mark message as read"""
         contact = db.session.get(cls, contact_id)
         if contact:
@@ -41,7 +44,7 @@ class Contact(db.Model):
             return True
         return False
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, Any]:
         """Convert contact to dictionary"""
         return {
             "id": self.id,

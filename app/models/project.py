@@ -1,6 +1,7 @@
-from datetime import datetime
+from typing import Any, Self, cast
 
 from app import db
+from app.utils.datetime import utc_now
 
 
 class Project(db.Model):
@@ -21,29 +22,33 @@ class Project(db.Model):
     end_date = db.Column(db.Date)
     display_order = db.Column(db.Integer, default=0, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="SET NULL"))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=utc_now, index=True)
+    updated_at = db.Column(db.DateTime, default=utc_now, onupdate=utc_now)
 
     # Relationship
     # user = db.relationship("User", backref="projects")
 
     @classmethod
-    def get_all_active(cls):
-        return cls.query.order_by(cls.display_order.asc(), cls.created_at.desc()).all()
+    def get_all_active(cls) -> list[Self]:
+        return cast(
+            list[Self], cls.query.order_by(cls.display_order.asc(), cls.created_at.desc()).all()
+        )
 
     @classmethod
-    def get_featured(cls):
-        return cls.query.filter_by(featured=True).order_by(cls.display_order).all()
+    def get_featured(cls) -> list[Self]:
+        return cast(
+            list[Self], cls.query.filter_by(featured=True).order_by(cls.display_order).all()
+        )
 
-    def get_technologies_list(self):
+    def get_technologies_list(self) -> list[str]:
         if self.technologies:
             return [tech.strip() for tech in self.technologies.split(",")]
         return []
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Project {self.title}>"
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, Any]:
         """Convert project to dictionary."""
         return {
             "id": self.id,

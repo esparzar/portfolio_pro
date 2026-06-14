@@ -1,10 +1,12 @@
+from flask import Flask
+
 from app import db
 from app.models.contact import Contact
 from app.models.project import Project
 from app.models.user import User
 
 
-def test_user_password_hashing(app):
+def test_user_password_hashing(app: Flask) -> None:
     user = User(username="hashuser", email="hash@example.com")
     user.set_password("mypassword")
 
@@ -13,7 +15,7 @@ def test_user_password_hashing(app):
     assert user.check_password("wrong") is False
 
 
-def test_user_authentication_updates_last_login(app):
+def test_user_authentication_updates_last_login(app: Flask) -> None:
     with app.app_context():
         user = User(username="authuser", email="auth@example.com", is_active=True)
         user.set_password("secret123")
@@ -28,7 +30,7 @@ def test_user_authentication_updates_last_login(app):
         assert User.authenticate("authuser", "wrong") is None
 
 
-def test_project_serialization_and_technology_parsing(app):
+def test_project_serialization_and_technology_parsing(app: Flask) -> None:
     with app.app_context():
         project = Project(
             title="Test Project",
@@ -47,7 +49,7 @@ def test_project_serialization_and_technology_parsing(app):
         assert project.get_technologies_list() == ["Python", "Flask", "SQLAlchemy"]
 
 
-def test_project_query_helpers(app):
+def test_project_query_helpers(app: Flask) -> None:
     with app.app_context():
         db.session.add_all(
             [
@@ -61,7 +63,7 @@ def test_project_query_helpers(app):
         assert len(Project.get_all_active()) == 2
 
 
-def test_contact_helpers(app):
+def test_contact_helpers(app: Flask) -> None:
     with app.app_context():
         contact = Contact(
             name="Reader", email="reader@example.com", message="Please read this message"

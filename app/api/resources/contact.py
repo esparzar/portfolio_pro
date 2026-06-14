@@ -1,6 +1,7 @@
 import logging
 import re
-from datetime import datetime, timedelta
+from datetime import timedelta
+from typing import Any, cast
 
 from flask import request
 from flask_jwt_extended import jwt_required
@@ -10,6 +11,7 @@ from app import db, limiter
 from app.api.security import get_current_admin
 from app.models.contact import Contact
 from app.services.email_service import send_contact_notification
+from app.utils.datetime import utc_now
 
 # Get logger
 logger = logging.getLogger(__name__)
@@ -17,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 class ContactResource(Resource):
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.parser = reqparse.RequestParser()
         self.parser.add_argument("name", type=str, required=True, help="Name is required")
         self.parser.add_argument("email", type=str, required=True, help="Email is required")
@@ -25,16 +27,16 @@ class ContactResource(Resource):
         self.parser.add_argument("message", type=str, required=True, help="Message is required")
         super().__init__()
 
-    def _validate_email(self, email):
+    def _validate_email(self, email: str) -> bool:
         """Validate email format"""
         email_regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         return re.match(email_regex, email) is not None
 
-    def _validate_name(self, name):
+    def _validate_name(self, name: str) -> bool:
         """Validate name (minimum 2 characters, letters and spaces only)"""
         return len(name.strip()) >= 2 and all(c.isalpha() or c.isspace() for c in name)
 
-    def _sanitize_input(self, text):
+    def _sanitize_input(self, text: str | None) -> str | None:
         """Basic sanitization to prevent XSS"""
         if not text:
             return text
@@ -42,7 +44,7 @@ class ContactResource(Resource):
         return re.sub(r"<[^>]*>", "", text)
 
     @limiter.limit("5 per hour")
-    def post(self):
+    def post(self) -> tuple[dict[str, Any], int]:
         """Submit contact form with rate limiting (max 5 per hour)"""
         # Get client IP for logging
         client_ip = request.remote_addr
@@ -51,10 +53,10 @@ class ContactResource(Resource):
             args = self.parser.parse_args()
 
             # Sanitize inputs
-            name = self._sanitize_input(args["name"])[:100]
-            email = self._sanitize_input(args["email"])[:120]
-            service = self._sanitize_input(args["service"])[:50]
-            message = self._sanitize_input(args["message"])[:1000]
+            name = cast(str, self._sanitize_input(args["name"]))[:100]
+            email = cast(str, self._sanitize_input(args["email"]))[:120]
+            service = cast(str, self._sanitize_input(args["service"]))[:50]
+            message = cast(str, self._sanitize_input(args["message"]))[:1000]
 
             # Validate inputs
             if not self._validate_name(name):
@@ -73,7 +75,7 @@ class ContactResource(Resource):
                 return {"success": False, "message": "Message must be at least 10 characters"}, 400
 
             # Check for duplicate submissions (same email + message within 5 minutes)
-            five_minutes_ago = datetime.utcnow() - timedelta(minutes=5)
+            five_minutes_ago = utc_now() - timedelta(minutes=5)
             duplicate = Contact.query.filter(
                 Contact.email == email,
                 Contact.message == message,
@@ -124,7 +126,7 @@ class ContactResource(Resource):
             }, 500
 
     @jwt_required()
-    def get(self):
+    def get(self) -> tuple[dict[str, Any], int]:
         """Get recent contacts (admin only)"""
         try:
             user = get_current_admin()
@@ -161,7 +163,7 @@ class ContactResource(Resource):
 class ContactDetailResource(Resource):
 
     @jwt_required()
-    def get(self, contact_id):
+    def get(self, contact_id: int) -> tuple[dict[str, Any], int]:
         """Get a specific contact by ID (admin only)"""
         try:
             user = get_current_admin()
@@ -185,7 +187,7 @@ class ContactDetailResource(Resource):
             return {"success": False, "message": "Failed to retrieve contact"}, 500
 
     @jwt_required()
-    def delete(self, contact_id):
+    def delete(self, contact_id: int) -> tuple[dict[str, Any], int]:
         """Delete a contact (admin only)"""
         try:
             user = get_current_admin()
@@ -214,7 +216,7 @@ class ContactStatsResource(Resource):
     """Get contact statistics (admin only)"""
 
     @jwt_required()
-    def get(self):
+    def get(self) -> tuple[dict[str, Any], int]:
         try:
             user = get_current_admin()
             if not user:
@@ -224,7 +226,7 @@ class ContactStatsResource(Resource):
             unread = Contact.query.filter_by(is_read=False).count()
 
             # Last 7 days
-            week_ago = datetime.utcnow() - timedelta(days=7)
+            week_ago = utc_now() - timedelta(days=7)
             this_week = Contact.query.filter(Contact.created_at >= week_ago).count()
 
             # By service type

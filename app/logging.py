@@ -1,8 +1,10 @@
 import logging
 from logging.config import dictConfig
 
+from flask import Flask
 
-def configure_logging(app):
+
+def configure_logging(app: Flask) -> None:
     """Configure application logging for local and production use."""
     level = "DEBUG" if app.config.get("DEBUG") else "INFO"
     dictConfig(

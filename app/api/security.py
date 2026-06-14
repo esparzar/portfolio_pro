@@ -4,7 +4,7 @@ from app import db
 from app.models.user import User
 
 
-def get_current_user():
+def get_current_user() -> User | None:
     identity = get_jwt_identity()
     try:
         user_id = int(identity)
@@ -13,7 +13,7 @@ def get_current_user():
     return db.session.get(User, user_id)
 
 
-def get_current_admin():
+def get_current_admin() -> User | None:
     user = get_current_user()
     if not user or not user.is_admin:
         return None

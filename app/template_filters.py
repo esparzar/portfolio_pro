@@ -1,7 +1,10 @@
 import json
 import os
+from typing import Any
 
-from flask import current_app, url_for
+from flask import Flask, current_app, url_for
+
+from app.utils.datetime import utc_now
 
 PROJECT_IMAGE_ALIASES = {
     "portfolio-home.png": "homepage-hero.png",
@@ -10,15 +13,13 @@ PROJECT_IMAGE_ALIASES = {
 }
 
 
-def register_template_filters(app):
+def register_template_filters(app: Flask) -> None:
     @app.context_processor
-    def inject_year():
-        from datetime import datetime
-
-        return {"current_year": datetime.utcnow().year}
+    def inject_year() -> dict[str, int]:
+        return {"current_year": utc_now().year}
 
     @app.template_filter("from_json")
-    def from_json_filter(value):
+    def from_json_filter(value: Any) -> Any:
         """Convert JSON strings or comma-separated values to a list."""
         if not value:
             return []
@@ -30,7 +31,7 @@ def register_template_filters(app):
             return [value] if value else []
 
     @app.template_filter("static_image")
-    def static_image_filter(path):
+    def static_image_filter(path: object) -> str:
         """Resolve a static image path or external URL for use in img src."""
         if path is None:
             return ""
@@ -52,8 +53,8 @@ def register_template_filters(app):
         if not path.startswith("images/") and "/" not in path:
             initial.append(f"images/project/{path}")
 
-        candidates = []
-        seen = set()
+        candidates: list[str] = []
+        seen: set[str] = set()
         for rel_path in initial:
             if rel_path not in seen:
                 seen.add(rel_path)
